@@ -1,8 +1,8 @@
 <?php
 
-namespace Alnet\DevoirTouchePasAuKlaxon\Controllers;
+namespace App\Controllers;
 
-use Alnet\DevoirTouchePasAuKlaxon\Models\Trajet;
+use App\Models\Trajet;
 
 /**
  * Contrôleur de la page d'accueil.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Alnet\DevoirTouchePasAuKlaxon\Core;
+namespace App\Core;
 
 use PDO;
 use PDOException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Alnet\DevoirTouchePasAuKlaxon\Models;
+namespace App\Models;
 
-use Alnet\DevoirTouchePasAuKlaxon\Core\Database;
+use App\Core\Database;
 use PDO;
 
 /**

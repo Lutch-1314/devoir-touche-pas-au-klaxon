@@ -3,7 +3,7 @@
     "description": "Application de covoiturage inter-sites développée en PHP MVC / Cross-site carpooling application developed in PHP MVC",
     "autoload": {
         "psr-4": {
-            "Alnet\\DevoirTouchePasAuKlaxon\\": "app/"
+            "App\\": "app/"
         }
     },
     "authors": [

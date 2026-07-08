@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-use Alnet\DevoirTouchePasAuKlaxon\Models\Trajet;
+use App\Models\Trajet;
 
 $trajets = Trajet::getTrajetsDisponibles();
 
