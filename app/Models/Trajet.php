@@ -37,7 +37,8 @@ class Trajet
             ORDER BY t.date_heure_depart ASC
         ";
 
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
