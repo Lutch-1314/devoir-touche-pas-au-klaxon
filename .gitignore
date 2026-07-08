@@ -1,0 +1,16 @@
+# Dépendances Composer
+/vendor/
+
+# Configuration locale (identifiants BDD, etc.)
+config/config.php
+
+# Paramètres des IDE
+/.vscode/
+/.idea/
+
+# Fichiers système Windows
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
