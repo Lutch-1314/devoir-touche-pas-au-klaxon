@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\Session;
 use App\Core\View;
 use App\Models\Trip;
 
@@ -18,9 +19,11 @@ class HomeController
     public function index(): void
     {
         $trajets = Trip::getTrajetsDisponibles();
+        $flash = Session::getFlash();
 
         View::render('home', [
-            'trajets' => $trajets
+            'trajets' => $trajets,
+            'flash' => $flash
         ]);
     }
 }

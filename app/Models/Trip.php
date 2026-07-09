@@ -42,4 +42,44 @@ class Trip
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    /**
+     * Crée un nouveau trajet.
+     *
+     * @param array $trip
+     *
+     * @return bool
+     */
+    public static function create(array $trip): bool
+    {
+        $pdo = Database::getConnection();
+    
+        $sql = "
+            INSERT INTO trajet
+            (
+                date_heure_depart,
+                date_heure_arrivee,
+                places_totales,
+                places_disponibles,
+                id_utilisateur,
+                id_agence_depart,
+                id_agence_arrivee
+            )
+            VALUES
+            (
+                :date_depart,
+                :date_arrivee,
+                :places_totales,
+                :places_disponibles,
+                :id_utilisateur,
+                :id_agence_depart,
+                :id_agence_arrivee
+            )
+        ";
+    
+        $stmt = $pdo->prepare($sql);
+    
+        return $stmt->execute($trip);
+    }
+    
 }

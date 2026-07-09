@@ -35,4 +35,30 @@ class User
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Recherche un utilisateur par son identifiant.
+     *
+     * @param int $id
+     *
+     * @return array|false
+     */
+    public static function findById(int $id): array|false
+    {
+        $pdo = Database::getConnection();
+    
+        $sql = "
+            SELECT *
+            FROM utilisateur
+            WHERE id_utilisateur = :id
+        ";
+    
+        $stmt = $pdo->prepare($sql);
+    
+        $stmt->execute([
+            'id' => $id
+        ]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

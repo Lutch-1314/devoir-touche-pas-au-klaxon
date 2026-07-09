@@ -2,7 +2,7 @@
 
 use App\Core\Session;
 
-$user = Session::user();
+$currentUser = Session::user();
 
 ?>
 
@@ -51,8 +51,8 @@ $user = Session::user();
                 </a>
 
                 <span>
-                    <?= htmlspecialchars($user['prenom']) ?>
-                    <?= htmlspecialchars($user['nom']) ?>
+                    <?= htmlspecialchars($currentUser['prenom']) ?>
+                    <?= htmlspecialchars($currentUser['nom']) ?>
                 </span>
 
                 <a href="/logout">

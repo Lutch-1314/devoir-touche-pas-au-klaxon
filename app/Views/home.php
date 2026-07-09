@@ -1,3 +1,11 @@
+<?php if ($flash): ?>
+
+    <p>
+        <?= htmlspecialchars($flash) ?>
+    </p>
+
+<?php endif; ?>
+
 <h1>Trajets disponibles</h1>
 
 <table border="1" cellpadding="8">

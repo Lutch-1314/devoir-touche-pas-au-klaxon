@@ -100,4 +100,49 @@ class Session
 
         session_destroy();
     }
+
+    /**
+     * Redirige vers la page de connexion
+     * si aucun utilisateur n'est connecté.
+     *
+     * @return void
+     */
+    public static function requireLogin(): void
+    {
+        if (!self::isLogged()) {
+            header('Location: /login');
+            exit;
+        }
+    }
+
+    /**
+ * Ajoute un message temporaire.
+ *
+ * @param string $message
+ *
+ * @return void
+ */
+public static function setFlash(string $message): void
+{
+    $_SESSION['flash'] = $message;
+}
+
+
+/**
+ * Récupère et supprime un message temporaire.
+ *
+ * @return string|null
+ */
+public static function getFlash(): ?string
+{
+    if (!isset($_SESSION['flash'])) {
+        return null;
+    }
+
+    $message = $_SESSION['flash'];
+
+    unset($_SESSION['flash']);
+
+    return $message;
+}
 }
