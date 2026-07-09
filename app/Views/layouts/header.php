@@ -8,56 +8,66 @@ $utilisateur = $_SESSION['utilisateur'] ?? null;
 
 ?>
 
-<header>
+<!DOCTYPE html>
+<html lang="fr">
 
-    <div>
-        <a href="/">
-            Touche Pas Au Klaxon
-        </a>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Touche Pas Au Klaxon</title>
+</head>
 
-    <nav>
+<body>
 
-        <?php if ($utilisateur && (int) $utilisateur['admin'] === 1): ?>
+    <header>
 
-            <a href="/admin">
-                Tableau de bord
+        <div>
+            <a href="/">
+                Touche Pas Au Klaxon
             </a>
+        </div>
 
-            <a href="/admin/users">
-                Utilisateurs
-            </a>
+        <nav>
 
-            <a href="/admin/trips">
-                Trajets
-            </a>
+            <?php if ($utilisateur && (int) $utilisateur['admin'] === 1): ?>
 
-            <a href="/logout">
-                Déconnexion
-            </a>
+                <a href="/admin">
+                    Tableau de bord
+                </a>
 
-        <?php elseif ($utilisateur): ?>
+                <a href="/admin/users">
+                    Utilisateurs
+                </a>
 
-            <a href="/trips/create">
-                Créer un trajet
-            </a>
+                <a href="/admin/trips">
+                    Trajets
+                </a>
 
-            <span>
-                <?= htmlspecialchars($utilisateur['prenom']) ?>
-                <?= htmlspecialchars($utilisateur['nom']) ?>
-            </span>
+                <a href="/logout">
+                    Déconnexion
+                </a>
 
-            <a href="/logout">
-                Déconnexion
-            </a>
+            <?php elseif ($utilisateur): ?>
 
-        <?php else: ?>
+                <a href="/trips/create">
+                    Créer un trajet
+                </a>
 
-            <a href="/login">
-                Connexion
-            </a>
+                <span>
+                    <?= htmlspecialchars($utilisateur['prenom']) ?>
+                    <?= htmlspecialchars($utilisateur['nom']) ?>
+                </span>
 
-        <?php endif; ?>
+                <a href="/logout">
+                    Déconnexion
+                </a>
 
-    </nav>
-</header>
+            <?php else: ?>
+
+                <a href="/login">
+                    Connexion
+                </a>
+
+            <?php endif; ?>
+
+        </nav>
+    </header>
