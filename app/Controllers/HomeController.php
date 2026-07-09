@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\View;
 use App\Models\Trajet;
 
 /**
@@ -18,6 +19,8 @@ class HomeController
     {
         $trajets = Trajet::getTrajetsDisponibles();
 
-        require __DIR__ . '/../Views/home.php';
+        View::render('home', [
+            'trajets' => $trajets
+        ]);
     }
 }

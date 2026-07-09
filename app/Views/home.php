@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="fr">
+<h1>Trajets disponibles</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Touche pas au klaxon</title>
-</head>
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Départ</th>
+            <th>Date de départ</th>
+            <th>Arrivée</th>
+            <th>Date d'arrivée</th>
+            <th>Places disponibles</th>
+        </tr>
+    </thead>
 
-<body>
-
-    <h1>Trajets disponibles</h1>
-
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>Départ</th>
-                <th>Date de départ</th>
-                <th>Arrivée</th>
-                <th>Date d'arrivée</th>
-                <th>Places disponibles</th>
-            </tr>
-        </thead>
-
-        <tbody>
+    <tbody>
 
         <?php foreach ($trajets as $trajet): ?>
 
@@ -39,9 +29,5 @@
 
         <?php endforeach; ?>
 
-        </tbody>
-    </table>
-
-</body>
-
-</html>
+    </tbody>
+</table>
