@@ -38,7 +38,7 @@ $utilisateur = $_SESSION['utilisateur'] ?? null;
 
         <?php elseif ($utilisateur): ?>
 
-            <a href="/trajet/create">
+            <a href="/trips/create">
                 Créer un trajet
             </a>
 
