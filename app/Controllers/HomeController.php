@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\View;
-use App\Models\Trajet;
+use App\Models\Trip;
 
 /**
  * Contrôleur de la page d'accueil.
@@ -17,7 +17,7 @@ class HomeController
      */
     public function index(): void
     {
-        $trajets = Trajet::getTrajetsDisponibles();
+        $trajets = Trip::getTrajetsDisponibles();
 
         View::render('home', [
             'trajets' => $trajets
