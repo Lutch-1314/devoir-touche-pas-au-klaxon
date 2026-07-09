@@ -1,10 +1,8 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+use App\Core\Session;
 
-$utilisateur = $_SESSION['utilisateur'] ?? null;
+$user = Session::user();
 
 ?>
 
@@ -28,7 +26,7 @@ $utilisateur = $_SESSION['utilisateur'] ?? null;
 
         <nav>
 
-            <?php if ($utilisateur && (int) $utilisateur['admin'] === 1): ?>
+            <?php if (Session::isAdmin()): ?>
 
                 <a href="/admin">
                     Tableau de bord
@@ -46,15 +44,15 @@ $utilisateur = $_SESSION['utilisateur'] ?? null;
                     Déconnexion
                 </a>
 
-            <?php elseif ($utilisateur): ?>
+            <?php elseif (Session::isLogged()): ?>
 
                 <a href="/trips/create">
                     Créer un trajet
                 </a>
 
                 <span>
-                    <?= htmlspecialchars($utilisateur['prenom']) ?>
-                    <?= htmlspecialchars($utilisateur['nom']) ?>
+                    <?= htmlspecialchars($user['prenom']) ?>
+                    <?= htmlspecialchars($user['nom']) ?>
                 </span>
 
                 <a href="/logout">
