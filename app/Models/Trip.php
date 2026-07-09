@@ -8,7 +8,7 @@ use PDO;
 /**
  * Modèle permettant de gérer les trajets.
  */
-class Trajet
+class Trip
 {
     /**
      * Récupère tous les trajets disponibles.
