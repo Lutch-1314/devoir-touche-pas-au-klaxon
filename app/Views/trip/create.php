@@ -6,10 +6,6 @@ $old = $old ?? [];
 
 <h1>Créer un trajet</h1>
 
-<pre>
-<?php print_r($user); ?>
-</pre>
-
 <?php if (isset($error)): ?>
 
     <p>
