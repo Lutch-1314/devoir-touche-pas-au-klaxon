@@ -5,6 +5,7 @@ namespace App\Core;
 /**
  * Classe permettant de gérer la session utilisateur.
  */
+
 class Session
 {
     /**
@@ -17,40 +18,6 @@ class Session
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-    }
-
-    /**
-     * Retourne l'utilisateur connecté.
-     *
-     * @return array|null
-     */
-    public static function user(): ?array
-    {
-        self::start();
-
-        return $_SESSION['user'] ?? null;
-    }
-
-    /**
-     * Indique si un utilisateur est connecté.
-     *
-     * @return bool
-     */
-    public static function isLogged(): bool
-    {
-        return self::user() !== null;
-    }
-
-    /**
-     * Indique si l'utilisateur connecté est administrateur.
-     *
-     * @return bool
-     */
-    public static function isAdmin(): bool
-    {
-        $user = self::user();
-
-        return $user !== null && (int) $user['admin'] === 1;
     }
 
     /**
@@ -102,6 +69,40 @@ class Session
     }
 
     /**
+     * Retourne l'utilisateur connecté.
+     *
+     * @return array|null
+     */
+    public static function user(): ?array
+    {
+        self::start();
+
+        return $_SESSION['user'] ?? null;
+    }
+
+    /**
+     * Indique si un utilisateur est connecté.
+     *
+     * @return bool
+     */
+    public static function isLogged(): bool
+    {
+        return self::user() !== null;
+    }
+
+    /**
+     * Indique si l'utilisateur connecté est administrateur.
+     *
+     * @return bool
+     */
+    public static function isAdmin(): bool
+    {
+        $user = self::user();
+
+        return $user !== null && (int) $user['admin'] === 1;
+    }
+
+    /**
      * Redirige vers la page de connexion
      * si aucun utilisateur n'est connecté.
      *
@@ -116,33 +117,49 @@ class Session
     }
 
     /**
- * Ajoute un message temporaire.
- *
- * @param string $message
- *
- * @return void
- */
-public static function setFlash(string $message): void
-{
-    $_SESSION['flash'] = $message;
-}
-
-
-/**
- * Récupère et supprime un message temporaire.
- *
- * @return string|null
- */
-public static function getFlash(): ?string
-{
-    if (!isset($_SESSION['flash'])) {
-        return null;
+     * Vérifie que l'utilisateur connecté est administrateur.
+     *
+     * @return void
+     */
+    public static function requireAdmin(): void
+    {
+        if (!self::isAdmin()) {
+            header('Location: /');
+            exit;
+        }
     }
 
-    $message = $_SESSION['flash'];
+    /**
+     * Ajoute un message temporaire.
+     *
+     * @param string $message
+     *
+     * @return void
+     */
+    public static function setFlash(string $message): void
+    {
+        self::start();
 
-    unset($_SESSION['flash']);
+        $_SESSION['flash'] = $message;
+    }
 
-    return $message;
-}
+    /**
+     * Récupère et supprime un message temporaire.
+     *
+     * @return string|null
+     */
+    public static function getFlash(): ?string
+    {
+        self::start();
+
+        if (!isset($_SESSION['flash'])) {
+            return null;
+        }
+
+        $message = $_SESSION['flash'];
+
+        unset($_SESSION['flash']);
+
+        return $message;
+    }
 }
