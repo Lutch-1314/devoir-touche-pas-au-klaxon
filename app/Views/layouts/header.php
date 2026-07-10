@@ -79,3 +79,5 @@ $currentUser = Session::user();
 
         </nav>
     </header>
+
+    <main>
