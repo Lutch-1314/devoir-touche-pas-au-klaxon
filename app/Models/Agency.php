@@ -109,4 +109,27 @@ class Agency
             'id' => $agency['id_agence']
         ]);
     }
+
+    /**
+     * Supprime une agence.
+     *
+     * @param int $id
+     *
+     * @return void
+     */
+    public static function delete(int $id): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        DELETE FROM agence
+        WHERE id_agence = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
 }

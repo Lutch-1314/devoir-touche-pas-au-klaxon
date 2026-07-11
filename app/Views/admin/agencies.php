@@ -38,9 +38,25 @@
                         Modifier
                     </a>
 
-                    <a href="/agencies/delete?id=<?= $agency['id_agence'] ?>">
-                        Supprimer
-                    </a>
+                    <form
+                        action="/agencies/delete"
+                        method="POST"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="id_agence"
+                            value="<?= $agency['id_agence'] ?>"
+                        >
+
+                        <button
+                            type="submit"
+                            onclick="return confirm('Supprimer cette agence ?')"
+                        >
+                            Supprimer
+                        </button>
+
+                    </form>
 
                 </td>
             </tr>

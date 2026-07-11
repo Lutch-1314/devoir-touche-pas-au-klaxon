@@ -42,7 +42,7 @@ class Trip
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     /**
      * Crée un nouveau trajet.
      *
@@ -53,7 +53,7 @@ class Trip
     public static function create(array $trip): bool
     {
         $pdo = Database::getConnection();
-    
+
         $sql = "
             INSERT INTO trajet
             (
@@ -76,10 +76,37 @@ class Trip
                 :id_agence_arrivee
             )
         ";
-    
+
         $stmt = $pdo->prepare($sql);
-    
+
         return $stmt->execute($trip);
     }
-    
+
+    /**
+     * Indique si une agence est utilisée par un trajet.
+     *
+     * @param int $agencyId
+     *
+     * @return bool
+     */
+    public static function isAgencyUsed(int $agencyId): bool
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT 1
+        FROM trajet
+        WHERE id_agence_depart = :id
+           OR id_agence_arrivee = :id
+        LIMIT 1
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $agencyId
+        ]);
+
+        return $stmt->fetchColumn() !== false;
+    }
 }

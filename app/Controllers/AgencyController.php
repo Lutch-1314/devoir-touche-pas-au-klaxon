@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\Session;
 use App\Core\View;
 use App\Models\Agency;
+use App\Models\Trip;
 
 /**
  * Contrôleur permettant de gérer les agences.
@@ -117,6 +118,40 @@ class AgencyController
         Agency::update($agency);
 
         Session::setFlash('Agence modifiée avec succès.');
+
+        header('Location: /admin/agencies');
+        exit;
+    }
+
+    /**
+     * Supprime une agence.
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        Session::requireAdmin();
+
+        $id = (int) ($_POST['id_agence'] ?? 0);
+
+        if ($id <= 0) {
+            header('Location: /admin/agencies');
+            exit;
+        }
+
+        if (Trip::isAgencyUsed($id)) {
+
+            Session::setFlash(
+                'Impossible de supprimer cette agence car elle est utilisée dans un ou plusieurs trajets.'
+            );
+
+            header('Location: /admin/agencies');
+            exit;
+        }
+
+        Agency::delete($id);
+
+        Session::setFlash('Agence supprimée avec succès.');
 
         header('Location: /admin/agencies');
         exit;
