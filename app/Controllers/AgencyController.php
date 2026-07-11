@@ -56,7 +56,10 @@ class AgencyController
             'ville' => $ville
         ]);
 
-        Session::setFlash('Agence créée avec succès.');
+        Session::setFlash(
+            'success',
+            'Agence créée avec succès.'
+        );
 
         header('Location: /admin/agencies');
         exit;
@@ -117,7 +120,10 @@ class AgencyController
 
         Agency::update($agency);
 
-        Session::setFlash('Agence modifiée avec succès.');
+        Session::setFlash(
+            'success',
+            'Agence modifiée avec succès.'
+        );
 
         header('Location: /admin/agencies');
         exit;
@@ -142,6 +148,7 @@ class AgencyController
         if (Trip::isAgencyUsed($id)) {
 
             Session::setFlash(
+                'error',
                 'Impossible de supprimer cette agence car elle est utilisée dans un ou plusieurs trajets.'
             );
 
@@ -151,7 +158,10 @@ class AgencyController
 
         Agency::delete($id);
 
-        Session::setFlash('Agence supprimée avec succès.');
+        Session::setFlash(
+            'success',
+            'Agence supprimée avec succès.'
+        );
 
         header('Location: /admin/agencies');
         exit;

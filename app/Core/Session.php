@@ -132,23 +132,29 @@ class Session
     /**
      * Ajoute un message temporaire.
      *
+     * @param string $type
      * @param string $message
      *
      * @return void
      */
-    public static function setFlash(string $message): void
-    {
+    public static function setFlash(
+        string $type,
+        string $message
+    ): void {
         self::start();
 
-        $_SESSION['flash'] = $message;
+        $_SESSION['flash'] = [
+            'type' => $type,
+            'message' => $message
+        ];
     }
 
     /**
      * Récupère et supprime un message temporaire.
      *
-     * @return string|null
+     * @return array|null
      */
-    public static function getFlash(): ?string
+    public static function getFlash(): ?array
     {
         self::start();
 

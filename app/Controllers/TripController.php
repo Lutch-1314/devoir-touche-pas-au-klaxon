@@ -106,7 +106,10 @@ public function store(): void
 
     Trip::create($trip);
 
-    Session::setFlash('Trajet créé avec succès !');
+    Session::setFlash(
+        'success',
+        'Trajet créé avec succès !'  
+    );
 
     header('Location: /');
     exit;
