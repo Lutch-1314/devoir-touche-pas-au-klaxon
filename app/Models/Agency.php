@@ -58,4 +58,55 @@ class Agency
             'ville' => $agency['ville']
         ]);
     }
+
+    /**
+     * Recherche une agence par son identifiant.
+     *
+     * @param int $id
+     *
+     * @return array|false
+     */
+    public static function findById(int $id): array|false
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT *
+        FROM agence
+        WHERE id_agence = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Met à jour une agence.
+     *
+     * @param array $agency
+     *
+     * @return void
+     */
+    public static function update(array $agency): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        UPDATE agence
+        SET ville = :ville
+        WHERE id_agence = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'ville' => $agency['ville'],
+            'id' => $agency['id_agence']
+        ]);
+    }
 }

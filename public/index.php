@@ -20,6 +20,8 @@ $router->get('/logout', [AuthController::class, 'logout']);
 
 $router->get('/agencies/create', [AgencyController::class, 'create']);
 $router->post('/agencies/create', [AgencyController::class, 'store']);
+$router->get('/agencies/edit', [AgencyController::class, 'edit']);
+$router->post('/agencies/edit', [AgencyController::class, 'update']);
 
 $router->get('/trips/create', [TripController::class, 'create']);
 $router->post('/trips/create', [TripController::class, 'store']);

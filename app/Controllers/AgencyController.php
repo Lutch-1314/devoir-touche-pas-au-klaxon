@@ -20,7 +20,15 @@ class AgencyController
     {
         Session::requireAdmin();
 
-        View::render('agencies/create');
+        View::render('agencies/form', [
+            'title' => 'Créer une agence',
+            'action' => '/agencies/create',
+            'button' => 'Créer',
+            'agency' => [
+                'id_agence' => '',
+                'ville' => ''
+            ]
+        ]);
     }
 
     /**
@@ -48,6 +56,67 @@ class AgencyController
         ]);
 
         Session::setFlash('Agence créée avec succès.');
+
+        header('Location: /admin/agencies');
+        exit;
+    }
+
+    /**
+     * Affiche le formulaire de modification d'une agence.
+     *
+     * @return void
+     */
+    public function edit(): void
+    {
+        Session::requireAdmin();
+
+        $id = (int) ($_GET['id'] ?? 0);
+
+        $agency = Agency::findById($id);
+
+        if (!$agency) {
+            header('Location: /admin/agencies');
+            exit;
+        }
+
+        View::render('agencies/form', [
+            'title' => 'Modifier une agence',
+            'action' => '/agencies/edit',
+            'button' => 'Enregistrer',
+            'agency' => $agency
+        ]);
+    }
+
+    /**
+     * Met à jour une agence.
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        Session::requireAdmin();
+
+        $agency = [
+            'id_agence' => (int) $_POST['id_agence'],
+            'ville' => trim($_POST['ville'])
+        ];
+
+        if ($agency['ville'] === '') {
+
+            View::render('agencies/form', [
+                'title' => 'Modifier une agence',
+                'action' => '/agencies/edit',
+                'button' => 'Enregistrer',
+                'agency' => $agency,
+                'error' => 'Veuillez saisir une ville.'
+            ]);
+
+            return;
+        }
+
+        Agency::update($agency);
+
+        Session::setFlash('Agence modifiée avec succès.');
 
         header('Location: /admin/agencies');
         exit;
