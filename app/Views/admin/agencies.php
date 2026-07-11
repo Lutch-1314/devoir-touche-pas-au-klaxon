@@ -1,0 +1,51 @@
+<h1>Liste des agences</h1>
+
+<?php if ($flash): ?>
+
+    <p>
+        <?= htmlspecialchars($flash) ?>
+    </p>
+
+<?php endif; ?>
+
+<p>
+    <a href="/agencies/create">
+        Ajouter une nouvelle agence
+    </a>
+</p>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ville</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php foreach ($agencies as $agency): ?>
+
+            <tr>
+                <td><?= htmlspecialchars($agency['id_agence']) ?></td>
+
+                <td><?= htmlspecialchars($agency['ville']) ?></td>
+
+                <td>
+
+                    <a href="/agencies/edit?id=<?= $agency['id_agence'] ?>">
+                        Modifier
+                    </a>
+
+                    <a href="/agencies/delete?id=<?= $agency['id_agence'] ?>">
+                        Supprimer
+                    </a>
+
+                </td>
+            </tr>
+
+        <?php endforeach; ?>
+
+    </tbody>
+</table>
