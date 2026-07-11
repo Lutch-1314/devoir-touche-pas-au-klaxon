@@ -6,6 +6,7 @@ use App\Core\Session;
 use App\Core\View;
 use App\Models\User;
 use App\Models\Agency;
+use App\Models\Trip;
 
 /**
  * Contrôleur du tableau de bord administrateur.
@@ -55,6 +56,25 @@ class AdminController
 
         View::render('admin/agencies', [
             'agencies' => $agencies,
+            'flash' => $flash
+        ]);
+    }
+
+    /**
+     * Affiche la liste des trajets.
+     *
+     * @return void
+     */
+    public function trips(): void
+    {
+        Session::requireAdmin();
+
+        $trips = Trip::getAll();
+
+        $flash = Session::getFlash();
+
+        View::render('admin/trips', [
+            'trips' => $trips,
             'flash' => $flash
         ]);
     }

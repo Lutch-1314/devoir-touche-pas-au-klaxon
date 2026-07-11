@@ -30,5 +30,6 @@ $router->post('/trips/create', [TripController::class, 'store']);
 $router->get('/admin', [AdminController::class, 'index']);
 $router->get('/admin/users', [AdminController::class, 'users']);
 $router->get('/admin/agencies', [AdminController::class, 'agencies']);
+$router->get('/admin/trips', [AdminController::class, 'trips']);
 
 $router->run();

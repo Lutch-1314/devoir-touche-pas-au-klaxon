@@ -1,7 +1,7 @@
 <?php if ($flash): ?>
 
-    <p>
-        <?= htmlspecialchars($flash) ?>
+    <p class="<?= htmlspecialchars($flash['type']) ?>">
+        <?= htmlspecialchars($flash['message']) ?>
     </p>
 
 <?php endif; ?>

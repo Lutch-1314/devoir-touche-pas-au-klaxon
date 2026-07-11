@@ -11,6 +11,45 @@ use PDO;
 class Trip
 {
     /**
+     * Récupère tous les trajets.
+     *
+     * @return array
+     */
+    public static function getAll(): array
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT
+            t.id_trajet,
+            ad.ville AS ville_depart,
+            aa.ville AS ville_arrivee,
+            t.date_heure_depart,
+            t.date_heure_arrivee,
+            t.places_totales,
+            t.places_disponibles,
+            u.nom,
+            u.prenom
+        FROM trajet t
+
+        JOIN agence ad
+            ON ad.id_agence = t.id_agence_depart
+
+        JOIN agence aa
+            ON aa.id_agence = t.id_agence_arrivee
+
+        JOIN utilisateur u
+            ON u.id_utilisateur = t.id_utilisateur
+
+        ORDER BY t.date_heure_depart
+    ";
+
+        return $pdo
+            ->query($sql)
+            ->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Récupère tous les trajets disponibles.
      *
      * @return array
