@@ -41,7 +41,7 @@ if ($flash): ?>
                 <td><?= htmlspecialchars($trip['date_heure_depart']) ?></td>
                 <td><?= htmlspecialchars($trip['date_heure_arrivee']) ?></td>
                 <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
-                
+
                 <?php if (Session::isLogged()): ?>
 
                     <td><?= htmlspecialchars($trip['prenom'] . ' ' . $trip['nom']) ?></td>
@@ -53,35 +53,37 @@ if ($flash): ?>
                         </button>
                     </td>
 
-                <td><?php if (
-                        Session::isLogged()
-                        && $trip['id_utilisateur'] == Session::user()['id']
-                    ): ?>
+                    <td>
+                        <?php if (
+                            Session::isLogged()
+                            && $trip['id_utilisateur'] == Session::user()['id']
+                        ): ?>
 
-                        Modifier
+                            <button
+                                type="button"
+                                onclick="window.location.href='/trips/edit?id=<?= $trip['id_trajet'] ?>'">
+                                Modifier
+                            </button>
 
-                        <form
-                        action="/trips/delete"
-                        method="POST"
-                    >
+                            <form
+                                action="/trips/delete"
+                                method="POST">
 
-                        <input
-                            type="hidden"
-                            name="id_trajet"
-                            value="<?= $trip['id_trajet'] ?>"
-                        >
+                                <input
+                                    type="hidden"
+                                    name="id_trajet"
+                                    value="<?= $trip['id_trajet'] ?>">
 
-                        <button
-                            type="submit"
-                            onclick="return confirm('Supprimer ce trajet ?')"
-                        >
-                            Supprimer
-                        </button>
+                                <button
+                                    type="submit"
+                                    onclick="return confirm('Supprimer ce trajet ?')">
+                                    Supprimer
+                                </button>
 
-                    </form>
+                            </form>
 
-                    <?php endif; ?>
-                </td>
+                        <?php endif; ?>
+                    </td>
                 <?php endif; ?>
             </tr>
 

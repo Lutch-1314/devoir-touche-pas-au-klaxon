@@ -104,6 +104,7 @@ class Trip
         $sql = "
             SELECT 
                 t.id_trajet,
+                t.id_utilisateur,
                 ad.ville AS ville_depart,
                 t.date_heure_depart,
                 aa.ville AS ville_arrivee,
@@ -225,6 +226,66 @@ class Trip
         return $stmt->fetchColumn() !== false;
     }
 
+/**
+     * Recherche un trajet par son identifiant.
+     *
+     * @param int $id
+     *
+     * @return array|false
+     */
+    public static function findById(int $id): array|false
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT *
+        FROM trajet
+        WHERE id_trajet = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Met à jour un trajet.
+     *
+     * @param array $trip
+     *
+     * @return void
+     */
+    public static function update(array $trip): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        UPDATE trajet
+        SET date_heure_depart = :date_heure_depart,
+            date_heure_arrivee = :date_heure_arrivee,
+            places_totales = :places_totales,
+            id_utilisateur = :id_utilisateur,
+            id_agence_depart = :id_agence_depart,
+            id_agence_arrivee = :id_agence_arrivee
+        WHERE id_trajet = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'date_heure_depart' => $trip['date_heure_depart'],
+            'date_heure_arrivee' => $trip['date_heure_arrivee'],
+            'places_totales' => $trip['places_totales'],
+            'id_utilisateur' => $trip['id_utilisateur'],
+            'id_agence_depart' => $trip['id_agence_depart'],
+            'id_agence_arrivee' => $trip['id_agence_arrivee'],
+            'id' => $trip['id_trajet']
+        ]);
+    }
 
     /**
      * Supprime un trajet.

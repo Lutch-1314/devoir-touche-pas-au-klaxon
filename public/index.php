@@ -27,6 +27,8 @@ $router->post('/agencies/delete', [AgencyController::class, 'delete']);
 $router->get('/trips/my-trips', [TripController::class, 'myTrips']);
 $router->get('/trips/create', [TripController::class, 'create']);
 $router->post('/trips/create', [TripController::class, 'store']);
+$router->get('/trips/edit', [TripController::class, 'edit']);
+$router->post('/trips/edit', [TripController::class, 'update']);
 $router->post('/trips/delete', [TripController::class, 'delete']);
 
 $router->get('/admin', [AdminController::class, 'index']);

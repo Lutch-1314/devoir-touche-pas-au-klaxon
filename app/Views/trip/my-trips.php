@@ -1,4 +1,8 @@
-<?php if ($flash): ?>
+<?php
+
+use App\Core\Session;
+
+if ($flash): ?>
 
     <p class="<?= htmlspecialchars($flash['type']) ?>">
         <?= htmlspecialchars($flash['message']) ?>
@@ -21,7 +25,7 @@
         </tr>
     </thead>
 
-    <tbody> 
+    <tbody>
 
         <?php foreach ($trips as $trip): ?>
 
@@ -39,26 +43,35 @@
                 <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
 
                 <td>
-
-                    <form
-                        action="/trips/delete"
-                        method="POST"
-                    >
-
-                        <input
-                            type="hidden"
-                            name="id_trajet"
-                            value="<?= $trip['id_trajet'] ?>"
-                        >
+                    <?php if (
+                        Session::isLogged()
+                        && $trip['id_utilisateur'] == Session::user()['id']
+                    ): ?>
 
                         <button
-                            type="submit"
-                            onclick="return confirm('Supprimer ce trajet ?')"
-                        >
-                            Supprimer
+                            type="button"
+                            onclick="window.location.href='/trips/edit?id=<?= $trip['id_trajet'] ?>'">
+                            Modifier
                         </button>
 
-                    </form>
+                        <form
+                            action="/trips/delete"
+                            method="POST">
+
+                            <input
+                                type="hidden"
+                                name="id_trajet"
+                                value="<?= $trip['id_trajet'] ?>">
+
+                            <button
+                                type="submit"
+                                onclick="return confirm('Supprimer ce trajet ?')">
+                                Supprimer
+                            </button>
+
+                        </form>
+
+                    <?php endif; ?>
                 </td>
             </tr>
 

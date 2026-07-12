@@ -33,26 +33,25 @@
                 <td><?= htmlspecialchars($agency['ville']) ?></td>
 
                 <td>
-
-                    <a href="/agencies/edit?id=<?= $agency['id_agence'] ?>">
+                    <button
+                        type="button"
+                        onclick="window.location.href='/agencies/edit?id=<?= $agency['id_agence'] ?>'"
+                    >
                         Modifier
-                    </a>
+                    </button>
 
                     <form
                         action="/agencies/delete"
-                        method="POST"
-                    >
+                        method="POST">
 
                         <input
                             type="hidden"
                             name="id_agence"
-                            value="<?= $agency['id_agence'] ?>"
-                        >
+                            value="<?= $agency['id_agence'] ?>">
 
                         <button
                             type="submit"
-                            onclick="return confirm('Supprimer cette agence ?')"
-                        >
+                            onclick="return confirm('Supprimer cette agence ?')">
                             Supprimer
                         </button>
 

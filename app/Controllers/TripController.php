@@ -12,7 +12,7 @@ use App\Models\User;
  * Contrôleur permettant de gérer les trajets.
  */
 class TripController
-{   
+{
     /** 
      * Affiche les trajets de l'utilisateur connecté.
      * 
@@ -47,7 +47,11 @@ class TripController
 
         $agencies = Agency::getAll();
 
-        View::render('trip/create', [
+        View::render('trip/form', [
+            'title' => 'Créer un trajet',
+            'action' => '/trips/create',
+            'button' => 'Créer',
+            'trip' => [],
             'user' => $user,
             'agencies' => $agencies
         ]);
@@ -70,64 +74,21 @@ class TripController
 
         $placesTotales = (int) $_POST['places_totales'];
 
-        $old = [
-            'id_agence_depart' => $idAgenceDepart,
-            'id_agence_arrivee' => $idAgenceArrivee,
-            'date_heure_depart' => $dateDepart,
-            'date_heure_arrivee' => $dateArrivee,
-            'places_totales' => $placesTotales
-        ];
+        $error = $this->validateTrip($_POST);
 
-        // Vérification : l'agence de départ et d'arrivée doivent être différentes
-        if ($idAgenceDepart === $idAgenceArrivee) {
+        if ($error !== null) {
 
             $this->displayCreateForm(
-                'L\'agence de départ et l\'agence d\'arrivée doivent être différentes.',
-                $old
+                $error,
+                $_POST
             );
 
             return;
         }
-
-
-        // Vérification : l'arrivée doit être après le départ
-        if ($dateArrivee <= $dateDepart) {
-
-            $this->displayCreateForm(
-                'La date d\'arrivée doit être après la date de départ.',
-                $old
-            );
-
-            return;
-        }
-
-        //Vérification : le départ ne peut pas être dans le passé
-
-        if (strtotime($dateDepart) < time()) {
-
-            $this->displayCreateForm(
-                'La date de départ ne peut pas être dans le passé.',
-                $old
-            );
-
-            return;
-        }
-
-        // Vérification : nombre de places positif
-        if ($placesTotales <= 0) {
-
-            $this->displayCreateForm(
-                'Le nombre de places doit être supérieur à zéro.',
-                $old
-            );
-
-            return;
-        }
-
 
         $trip = [
-            'date_depart' => $dateDepart,
-            'date_arrivee' => $dateArrivee,
+            'date_heure_depart' => $dateDepart,
+            'date_heure_arrivee' => $dateArrivee,
             'places_totales' => $placesTotales,
             'places_disponibles' => $placesTotales,
             'id_utilisateur' => Session::user()['id'],
@@ -148,24 +109,120 @@ class TripController
     }
 
     /**
-     * Affiche le formulaire de création d'un trajet avec un message d'erreur.
-     *
-     * @param string $errorMessage
+     * Affiche le formulaire de modification d'un trajet.
      *
      * @return void
      */
-    private function displayCreateForm(string $errorMessage, array $old = []): void
+    public function edit(): void
     {
+        Session::requireLogin();
+
         $user = User::findById(Session::user()['id']);
+
+        $id = (int) ($_GET['id'] ?? 0);
+
+        if (
+            !Session::isAdmin()
+            && !Trip::belongsToUser($id, Session::user()['id'])
+        ) {
+            header('Location: /');
+            exit;
+        }
+
+        $trip = Trip::findById($id);
+
+        if (!$trip) {
+            header('Location: /');
+            exit;
+        }
 
         $agencies = Agency::getAll();
 
-        View::render('trip/create', [
+        View::render('trip/form', [
+            'title' => 'Modifier un trajet',
+            'action' => '/trips/edit',
+            'button' => 'Enregistrer',
+            'trip' => $trip,
             'user' => $user,
-            'agencies' => $agencies,
-            'error' => $errorMessage,
-            'old' => $old
+            'agencies' => $agencies
         ]);
+    }
+    /**
+     * Met à jour un trajet.
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        Session::requireLogin();
+
+        $id = (int) $_POST['id_trajet'];
+
+        if (
+            !Session::isAdmin()
+            && !Trip::belongsToUser($id, Session::user()['id'])
+        ) {
+            header('Location: /');
+            exit;
+        }
+
+        $idAgenceDepart = (int) $_POST['id_agence_depart'];
+        $idAgenceArrivee = (int) $_POST['id_agence_arrivee'];
+
+        $dateDepart = $_POST['date_heure_depart'];
+        $dateArrivee = $_POST['date_heure_arrivee'];
+
+        $placesTotales = (int) $_POST['places_totales'];
+
+        $error = $this->validateTrip($_POST);
+
+        if ($error !== null) {
+
+            $trip = Trip::findById($id);
+
+            $user = User::findById(Session::user()['id']);
+
+            $agencies = Agency::getAll();
+
+            View::render('trip/form', [
+                'title' => 'Modifier un trajet',
+                'action' => '/trips/edit',
+                'button' => 'Enregistrer',
+                'trip' => $trip,
+                'user' => $user,
+                'agencies' => $agencies,
+                'old' => $_POST,
+                'error' => $error
+            ]);
+
+            return;
+        }
+        $trip = [
+            'id_trajet' => $id,
+            'date_heure_depart' => $dateDepart,
+            'date_heure_arrivee' => $dateArrivee,
+            'places_totales' => $placesTotales,
+            'id_utilisateur' => Session::user()['id'],
+            'id_agence_depart' => $idAgenceDepart,
+            'id_agence_arrivee' => $idAgenceArrivee
+        ];
+
+        Trip::update($trip);
+
+        Session::setFlash(
+            'success',
+            'Trajet modifié avec succès.'
+        );
+
+        if (Session::isAdmin()) {
+
+            header('Location: /admin/trips');
+        } else {
+
+            header('Location: /trips/my-trips');
+        }
+
+        exit;
     }
 
     /**
@@ -204,5 +261,73 @@ class TripController
         }
 
         exit;
+    }
+
+    /**
+     * Affiche le formulaire de création d'un trajet avec un message d'erreur.
+     *
+     * @param string $errorMessage
+     *
+     * @return void
+     */
+    private function displayCreateForm(string $errorMessage, array $old = []): void
+    {
+        $user = User::findById(Session::user()['id']);
+
+        $agencies = Agency::getAll();
+
+        View::render('trip/form', [
+            'title' => 'Créer un trajet',
+            'action' => '/trips/create',
+            'button' => 'Créer',
+            'trip' => [
+                'id_trajet' => '',
+                'date_heure_depart' => $old['date_heure_depart'] ?? '',
+                'date_heure_arrivee' => $old['date_heure_arrivee'] ?? '',
+                'places_totales' => $old['places_totales'] ?? '',
+                'id_agence_depart' => $old['id_agence_depart'] ?? '',
+                'id_agence_arrivee' => $old['id_agence_arrivee'] ?? ''
+            ],
+            'user' => $user,
+            'agencies' => $agencies,
+            'error' => $errorMessage,
+            'old' => $old
+        ]);
+    }
+
+    /**
+     * Valide les données d'un trajet.
+     *
+     * @param array $data
+     *
+     * @return string|null Message d'erreur ou null si les données sont valides.
+     */
+    private function validateTrip(array $data): ?string
+    {
+        $idAgenceDepart = (int) $data['id_agence_depart'];
+        $idAgenceArrivee = (int) $data['id_agence_arrivee'];
+
+        $dateDepart = $data['date_heure_depart'];
+        $dateArrivee = $data['date_heure_arrivee'];
+
+        $placesTotales = (int) $data['places_totales'];
+
+        if ($idAgenceDepart === $idAgenceArrivee) {
+            return 'Les agences de départ et d\'arrivée doivent être différentes.';
+        }
+
+        if ($dateArrivee <= $dateDepart) {
+            return 'La date d\'arrivée doit être postérieure à la date de départ.';
+        }
+
+        if ($dateDepart < date('Y-m-d\TH:i')) {
+            return 'La date de départ ne peut pas être dans le passé.';
+        }
+
+        if ($placesTotales < 1) {
+            return 'Le nombre de places doit être supérieur à 0.';
+        }
+
+        return null;
     }
 }
