@@ -83,6 +83,43 @@ class Trip
     }
 
     /**
+     * Récupère les trajets d'un utilisateur.
+     *
+     * @param int $userId
+     *
+     * @return array
+     */
+    public static function getTripsByUser(int $userId): array
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+            SELECT 
+                t.id_trajet,
+                ad.ville AS ville_depart,
+                t.date_heure_depart,
+                aa.ville AS ville_arrivee,
+                t.date_heure_arrivee,
+                t.places_totales,
+                t.places_disponibles
+            FROM trajet t
+            INNER JOIN agence ad
+                ON t.id_agence_depart = ad.id_agence
+            INNER JOIN agence aa
+                ON t.id_agence_arrivee = aa.id_agence
+            WHERE t.id_utilisateur = :userId
+            ORDER BY t.date_heure_depart ASC
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'userId' => $userId
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Crée un nouveau trajet.
      *
      * @param array $trip

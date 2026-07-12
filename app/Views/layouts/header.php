@@ -56,6 +56,10 @@ $currentUser = Session::user();
 
             <?php elseif (Session::isLogged()): ?>
 
+                <a href="/trips/my-trips">
+                    Mes trajets
+                </a>
+
                 <a href="/trips/create">
                     Créer un trajet
                 </a>

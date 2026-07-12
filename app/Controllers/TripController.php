@@ -12,7 +12,28 @@ use App\Models\User;
  * Contrôleur permettant de gérer les trajets.
  */
 class TripController
-{
+{   
+    /** 
+     * Affiche les trajets de l'utilisateur connecté.
+     * 
+     * @return void
+     */
+    public function myTrips(): void
+    {
+        Session::requireLogin();
+
+        $trips = Trip::getTripsByUser(
+            Session::user()['id']
+        );
+
+        $flash = Session::getFlash();
+
+        View::render('trip/my-trips', [
+            'trips' => $trips,
+            'flash' => $flash
+        ]);
+    }
+
     /**
      * Affiche le formulaire de création d'un trajet.
      *
