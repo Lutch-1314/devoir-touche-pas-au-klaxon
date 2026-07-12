@@ -101,6 +101,17 @@ class TripController
             return;
         }
 
+        //Vérification : le départ ne peut pas être dans le passé
+
+        if (strtotime($dateDepart) < time()) {
+
+            $this->displayCreateForm(
+                'La date de départ ne peut pas être dans le passé.',
+                $old
+            );
+
+            return;
+        }
 
         // Vérification : nombre de places positif
         if ($placesTotales <= 0) {

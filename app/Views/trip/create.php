@@ -123,6 +123,7 @@ $old = $old ?? [];
             id="date_heure_depart"
             name="date_heure_depart"
             value="<?= htmlspecialchars($old['date_heure_depart'] ?? '') ?>"
+            min="<?= date('Y-m-d\TH:i') ?>"
             required>
     </div>
 
