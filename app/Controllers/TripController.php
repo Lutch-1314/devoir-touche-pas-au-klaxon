@@ -135,4 +135,42 @@ class TripController
             'old' => $old
         ]);
     }
+
+    /**
+     * Supprime un trajet.
+     * 
+     * @return void
+     */
+    public function delete(): void
+    {
+        Session::requireLogin();
+
+        $id = (int) ($_POST['id_trajet'] ?? 0);
+
+        if (
+            !Session::isAdmin()
+            && !Trip::belongsToUser($id, Session::user()['id'])
+        ) {
+
+            header('Location: /');
+            exit;
+        }
+
+        Trip::delete($id);
+
+        Session::setFlash(
+            'success',
+            'Trajet supprimé avec succès.'
+        );
+
+        if (Session::isAdmin()) {
+
+            header('Location: /admin/trips');
+        } else {
+
+            header('Location: /');
+        }
+
+        exit;
+    }
 }

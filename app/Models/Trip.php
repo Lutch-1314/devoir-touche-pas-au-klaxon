@@ -148,4 +148,59 @@ class Trip
 
         return $stmt->fetchColumn() !== false;
     }
+
+    /**
+     * Vérifie si un trajet appartient à un utilisateur.
+     *
+     * @param int $tripId Identifiant du trajet.
+     * @param int $userId Identifiant de l'utilisateur.
+     *
+     * @return bool True si le trajet appartient à l'utilisateur, false sinon.
+     */
+
+    public static function belongsToUser(int $tripId, int $userId): bool
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT 1
+        FROM trajet
+        WHERE id_trajet = :tripId
+          AND id_utilisateur = :userId
+        LIMIT 1
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'tripId' => $tripId,
+            'userId' => $userId
+        ]);
+
+        return $stmt->fetchColumn() !== false;
+    }
+
+
+    /**
+     * Supprime un trajet.
+     *
+     * @param int $id
+     *
+     * @return void
+     */
+    public static function delete(int $id): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        DELETE FROM trajet
+        WHERE id_trajet = :id
+        ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
 }
