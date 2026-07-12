@@ -18,11 +18,11 @@ class HomeController
      */
     public function index(): void
     {
-        $trajets = Trip::getTrajetsDisponibles();
+        $trips = Trip::getTrajetsDisponibles();
         $flash = Session::getFlash();
 
         View::render('home', [
-            'trajets' => $trajets,
+            'trips' => $trips,
             'flash' => $flash
         ]);
     }

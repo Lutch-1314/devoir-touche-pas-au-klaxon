@@ -50,7 +50,7 @@ class Trip
     }
 
     /**
-     * Récupère tous les trajets disponibles.
+     * Récupère tous les trajets disponibles + les informations sur le conducteur.
      *
      * @return array
      */
@@ -61,16 +61,24 @@ class Trip
         $sql = "
             SELECT 
                 t.id_trajet,
+                t.id_utilisateur,
                 ad.ville AS ville_depart,
-                t.date_heure_depart,
                 aa.ville AS ville_arrivee,
+                t.date_heure_depart,
                 t.date_heure_arrivee,
-                t.places_disponibles
+                t.places_disponibles,
+                t.places_totales,
+                u.prenom,
+                u.nom,
+                u.telephone,
+                u.email
             FROM trajet t
             INNER JOIN agence ad
                 ON t.id_agence_depart = ad.id_agence
             INNER JOIN agence aa
                 ON t.id_agence_arrivee = aa.id_agence
+            INNER JOIN utilisateur u
+                ON t.id_utilisateur = u.id_utilisateur
             WHERE t.places_disponibles > 0
                 AND t.date_heure_depart > NOW()
             ORDER BY t.date_heure_depart ASC
