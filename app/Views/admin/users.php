@@ -3,7 +3,6 @@
 <table border="1" cellpadding="8">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Téléphone</th>
@@ -13,26 +12,16 @@
     </thead>
 
     <tbody>
-
         <?php foreach ($users as $user): ?>
-
             <tr>
-                <td><?= htmlspecialchars($user['id_utilisateur']) ?></td>
-
                 <td><?= htmlspecialchars($user['nom']) ?></td>
-
                 <td><?= htmlspecialchars($user['prenom']) ?></td>
-
                 <td><?= htmlspecialchars($user['telephone']) ?></td>
-
                 <td><?= htmlspecialchars($user['email']) ?></td>
-
                 <td>
                     <?= (int) $user['admin'] === 1 ? 'Oui' : 'Non' ?>
                 </td>
             </tr>
-
         <?php endforeach; ?>
-
     </tbody>
 </table>

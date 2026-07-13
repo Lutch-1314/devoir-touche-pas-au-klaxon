@@ -22,9 +22,9 @@ class AgencyController
         Session::requireAdmin();
 
         View::render('agencies/form', [
-            'title' => 'Créer une agence',
+            'title' => 'Ajouter une nouvelle agence',
             'action' => '/agencies/create',
-            'button' => 'Créer',
+            'button' => 'Ajouter',
             'agency' => [
                 'id_agence' => '',
                 'ville' => ''

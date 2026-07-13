@@ -17,7 +17,6 @@
 <table border="1" cellpadding="8">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Ville</th>
             <th>Actions</th>
         </tr>
@@ -28,10 +27,7 @@
         <?php foreach ($agencies as $agency): ?>
 
             <tr>
-                <td><?= htmlspecialchars($agency['id_agence']) ?></td>
-
                 <td><?= htmlspecialchars($agency['ville']) ?></td>
-
                 <td>
                     <button
                         type="button"
@@ -54,13 +50,11 @@
                             onclick="return confirm('Supprimer cette agence ?')">
                             Supprimer
                         </button>
-
                     </form>
-
                 </td>
             </tr>
 
         <?php endforeach; ?>
-
+        
     </tbody>
 </table>

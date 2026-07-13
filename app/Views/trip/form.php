@@ -182,9 +182,8 @@ $arrivalDate = $old['date_heure_arrivee']
         <?= htmlspecialchars($button) ?>
     </button>
 
-    <button
-        type="button"
-        onclick="window.location.href='<?= \App\Core\Session::isAdmin() ? '/admin/trips' : '/trips/my-trips' ?>'">
+    <a href="<?= \App\Core\Session::isAdmin() ? '/admin/trips' : '/trips/my-trips' ?>">
         Annuler
-    </button>
+    </a>
+
 </form>

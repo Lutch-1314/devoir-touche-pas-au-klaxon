@@ -35,10 +35,8 @@
             <?= htmlspecialchars($button) ?>
         </button>
 
-        <button>
-            <a href="/admin/agencies">
-                Annuler
-            </a>
-        </button>
+        <a href="/admin/agencies">
+            Annuler
+        </a>
     </div>
 </form>
