@@ -22,7 +22,9 @@ class AdminController
     {
         Session::requireAdmin();
 
-        View::render('admin/index');
+        View::render('admin/dashboard', [
+            'user' => Session::user()
+        ]);
     }
 
     /**
