@@ -1,14 +1,27 @@
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+
+    // Couleurs
+    $primary: #0074c7,
+    $primary-dark: #00497c,
+    $success: #82b864,
+    $danger: #cd2c2e,
+    $dark: #384050,
+    $light: #f1f8fc,
+
+    // Liens
+    $link-color: #0074c7,
+    $link-hover-color: #00497c
+);
+
+
 // ========================================
-// Variables Bootstrap
+// Styles personnels
 // ========================================
 
-// Exemple (tu les modifieras avec les couleurs du brief plus tard)
-// $primary: #0d6efd;
-// $secondary: #6c757d;
+body {
+    background-color: #f1f8fc;
+}
 
-
-// ========================================
-// Bootstrap
-// ========================================
-
-@use "../node_modules/bootstrap/scss/bootstrap";
+.navbar-brand {
+    font-weight: bold;
+}
