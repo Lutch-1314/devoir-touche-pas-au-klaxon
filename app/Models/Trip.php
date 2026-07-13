@@ -54,7 +54,7 @@ class Trip
      *
      * @return array
      */
-    public static function getTrajetsDisponibles(): array
+    public static function getAvailableTrips(): array
     {
         $pdo = Database::getConnection();
 

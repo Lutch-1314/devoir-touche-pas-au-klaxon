@@ -18,7 +18,7 @@ class HomeController
      */
     public function index(): void
     {
-        $trips = Trip::getTrajetsDisponibles();
+        $trips = Trip::getAvailableTrips();
         $flash = Session::getFlash();
 
         View::render('home', [

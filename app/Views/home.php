@@ -48,9 +48,14 @@ if ($flash): ?>
 
                     <td>
                         <button
-                            type="button">
+                            type="button"
+                            class="btn btn-outline-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#tripModal<?= $trip['id_trajet'] ?>">
                             + d'infos
                         </button>
+
+                        <?php require __DIR__ . '/trip/info-modal.php'; ?>
                     </td>
 
                     <td>
