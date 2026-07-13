@@ -1,6 +1,9 @@
 # Dépendances Composer
 /vendor/
 
+# Dépendances Node
+/node_modules/
+
 # Configuration locale (identifiants BDD, etc.)
 config/config.php
 
