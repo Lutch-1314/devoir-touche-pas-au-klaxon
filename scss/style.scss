@@ -2,7 +2,7 @@
 
     // Couleurs
     $primary: #0074c7,
-    $primary-dark: #00497c,
+    $secondary: #00497c,
     $success: #82b864,
     $danger: #cd2c2e,
     $dark: #384050,
@@ -13,15 +13,19 @@
     $link-hover-color: #00497c
 );
 
+// ========================================
+// Partials
+// ========================================
+
+@use "./components";
+@use "./layouts";
+@use "./variables";
 
 // ========================================
-// Styles personnels
+// Styles globaux
 // ========================================
 
 body {
-    background-color: #f1f8fc;
-}
-
-.navbar-brand {
-    font-weight: bold;
+    color: var(--bs-dark);
+    background-color: var(--bs-light);
 }

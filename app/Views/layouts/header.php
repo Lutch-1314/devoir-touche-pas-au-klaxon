@@ -19,69 +19,81 @@ $currentUser = Session::user();
 
     <header>
 
-        <div>
-            <?php if (Session::isAdmin()): ?>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
 
-                <a href="/admin">
-                    Touche Pas Au Klaxon
-                </a>
+            <div class="container-fluid">
 
-            <?php else: ?>
+                <?php if (Session::isAdmin()): ?>
 
-                <a href="/">
-                    Touche Pas Au Klaxon
-                </a>
+                    <a class="navbar-brand" href="/admin">
+                        Touche Pas Au Klaxon
+                    </a>
 
-            <?php endif; ?>
-        </div>
+                <?php else: ?>
 
-        <nav>
+                    <a class="navbar-brand" href="/">
+                        Touche Pas Au Klaxon
+                    </a>
 
-            <?php if (Session::isAdmin()): ?>
+                <?php endif; ?>
 
-                <a href="/admin/users">
-                    Utilisateurs
-                </a>
+                <ul class="navbar-nav ms-auto">
 
-                <a href="/admin/agencies">
-                    Agences
-                </a>
+                    <?php if (Session::isAdmin()): ?>
 
-                <a href="/admin/trips">
-                    Trajets
-                </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">
+                                Utilisateurs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/agencies">
+                                Agences
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/trips">
+                                Trajets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                Déconnexion
+                            </a>
+                        </li>
 
-                <a href="/logout">
-                    Déconnexion
-                </a>
 
-            <?php elseif (Session::isLogged()): ?>
+                    <?php elseif (Session::isLogged()): ?>
 
-                <a href="/trips/my-trips">
-                    Mes trajets
-                </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/trips/my-trips">
+                                Mes trajets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/trips/create">
+                                Créer un trajet
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                Déconnexion
+                            </a>
+                        </li>
 
-                <a href="/trips/create">
-                    Créer un trajet
-                </a>
+                    <?php else: ?>
 
-                <span>
-                    <?= htmlspecialchars($currentUser['prenom']) ?>
-                    <?= htmlspecialchars($currentUser['nom']) ?>
-                </span>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">
+                                Connexion
+                            </a>
+                        </li>
 
-                <a href="/logout">
-                    Déconnexion
-                </a>
+                    <?php endif; ?>
 
-            <?php else: ?>
+                </ul>
 
-                <a href="/login">
-                    Connexion
-                </a>
-
-            <?php endif; ?>
-
+            </div>
         </nav>
     </header>
 
