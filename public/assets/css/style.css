@@ -11859,9 +11859,9 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-body {
-  color: var(--bs-dark);
-  background-color: var(--bs-light);
+h1 {
+  color: var(--bs-secondary);
+  padding: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -15,7 +15,7 @@ $currentUser = Session::user();
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
-<body>
+<body class="bg-light d-flex flex-column min-vh-100">
 
     <header>
 
@@ -97,4 +97,4 @@ $currentUser = Session::user();
         </nav>
     </header>
 
-    <main>
+    <main class="m-3">

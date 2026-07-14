@@ -12,8 +12,8 @@ if ($flash): ?>
 
 <h1>Trajets disponibles</h1>
 
-<table border="1" cellpadding="8">
-    <thead>
+<table class="table table-striped table-bordered align-middle w-auto">
+    <thead class="align-middle">
         <tr>
             <th>Départ</th>
             <th>Arrivée</th>
@@ -31,7 +31,7 @@ if ($flash): ?>
         </tr>
     </thead>
 
-    <tbody>
+    <tbody class="table-group-divider">
 
         <?php foreach ($trips as $trip): ?>
 
