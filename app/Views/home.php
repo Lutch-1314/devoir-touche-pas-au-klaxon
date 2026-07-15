@@ -10,16 +10,21 @@ if ($flash): ?>
 
 <?php endif; ?>
 
-<h1>Trajets disponibles</h1>
+<h1>Trajets proposés</h1>
 
-<table class="table table-striped table-bordered align-middle w-auto">
-    <thead class="align-middle">
+<p>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
+
+<table class="table table-striped table-bordered text-center">
+
+    <thead>
         <tr>
             <th>Départ</th>
-            <th>Arrivée</th>
-            <th>Départ le</th>
-            <th>Arrivée le</th>
-            <th>Places disponibles</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Places</th>
 
             <?php if (Session::isLogged()): ?>
 
@@ -31,15 +36,27 @@ if ($flash): ?>
         </tr>
     </thead>
 
-    <tbody class="table-group-divider">
+    <tbody>
 
         <?php foreach ($trips as $trip): ?>
 
             <tr>
                 <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
+
+                <?php
+                $depart = new DateTime($trip['date_heure_depart']);
+                ?>
+
+                <td><?= htmlspecialchars($depart->format('d/m/Y')) ?></td>
+                <td><?= htmlspecialchars($depart->format('H:i')) ?></td>
                 <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
-                <td><?= htmlspecialchars($trip['date_heure_depart']) ?></td>
-                <td><?= htmlspecialchars($trip['date_heure_arrivee']) ?></td>
+
+                <?php
+                $arrivee = new DateTime($trip['date_heure_arrivee']);
+                ?>
+
+                <td><?= htmlspecialchars($arrivee->format('d/m/Y')) ?></td>
+                <td><?= htmlspecialchars($arrivee->format('H:i')) ?></td>
                 <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
 
                 <?php if (Session::isLogged()): ?>
