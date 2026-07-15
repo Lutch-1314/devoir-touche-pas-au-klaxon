@@ -11861,7 +11861,7 @@ textarea.form-control-lg {
 }
 h1 {
   color: var(--bs-secondary);
-  padding: 10px;
+  padding-bottom: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

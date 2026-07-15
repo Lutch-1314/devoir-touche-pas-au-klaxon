@@ -8,32 +8,36 @@
 
 <?php endif; ?>
 
-<form action="/login" method="POST">
+<div class="col-lg-3">
+    <form action="/login" method="POST">
 
-    <div>
-        <label for="email">Adresse e-mail</label>
+        <div class="mb-3">
+            <label class="form-label" for="email">Adresse e-mail</label>
 
-        <input
-            type="email"
-            id="email"
-            name="email"
-            required
-        >
-    </div>
+            <input
+                class="form-control"
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="username"
+                required>
+        </div>
 
-    <div>
-        <label for="mot_de_passe">Mot de passe</label>
+        <div class="mb-4">
+            <label class="form-label" for="mot_de_passe">Mot de passe</label>
 
-        <input
-            type="password"
-            id="mot_de_passe"
-            name="mot_de_passe"
-            required
-        >
-    </div>
+            <input
+                class="form-control"
+                type="password"
+                id="mot_de_passe"
+                name="mot_de_passe"
+                autocomplete="current-password"
+                required>
+        </div>
 
-    <button type="submit">
-        Se connecter
-    </button>
+        <button class="btn btn-primary" type="submit">
+            Se connecter
+        </button>
 
-</form>
+    </form>
+</div>
