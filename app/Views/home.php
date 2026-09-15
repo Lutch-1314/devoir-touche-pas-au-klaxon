@@ -10,9 +10,7 @@ if ($flash): ?>
 
 <?php endif; ?>
 
-<h1>Trajets proposés</h1>
-
-<p>Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
+<p class="mt-3 fs-2">Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
 
 <table class="table table-striped table-bordered text-center">
 
@@ -28,9 +26,7 @@ if ($flash): ?>
 
             <?php if (Session::isLogged()): ?>
 
-                <th>Conducteur</th>
-                <th>Informations</th>
-                <th>Actions</th>
+                <th></th>
 
             <?php endif; ?>
         </tr>
@@ -47,7 +43,7 @@ if ($flash): ?>
                 $depart = new DateTime($trip['date_heure_depart']);
                 ?>
 
-                <td><?= htmlspecialchars($depart->format('d/m/Y')) ?></td>
+                <td><?= htmlspecialchars($depart->format('d/m/y')) ?></td>
                 <td><?= htmlspecialchars($depart->format('H:i')) ?></td>
                 <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
 
@@ -55,7 +51,7 @@ if ($flash): ?>
                 $arrivee = new DateTime($trip['date_heure_arrivee']);
                 ?>
 
-                <td><?= htmlspecialchars($arrivee->format('d/m/Y')) ?></td>
+                <td><?= htmlspecialchars($arrivee->format('d/m/y')) ?></td>
                 <td><?= htmlspecialchars($arrivee->format('H:i')) ?></td>
                 <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
 
