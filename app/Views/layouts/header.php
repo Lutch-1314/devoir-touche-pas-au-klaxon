@@ -17,9 +17,9 @@ $currentUser = Session::user();
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="container my-3 bg-light d-flex flex-column min-vh-100">
 
-    <header class="border-bottom border-dark">
+    <header class="border border-dark rounded-3">
 
         <nav class="navbar navbar-expand-lg">
 
@@ -34,7 +34,7 @@ $currentUser = Session::user();
                 <?php else: ?>
 
                     <a class="navbar-brand" href="/">
-                        Touche Pas Au Klaxon
+                        Touche pas au klaxon
                     </a>
 
                 <?php endif; ?>
@@ -87,7 +87,7 @@ $currentUser = Session::user();
                     <?php else: ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">
+                            <a class="btn btn-dark" href="/login">
                                 Connexion
                             </a>
                         </li>
@@ -106,4 +106,4 @@ $currentUser = Session::user();
         </p>
     <?php endif; ?>
 
-    <main class="m-3">
+    <main>
