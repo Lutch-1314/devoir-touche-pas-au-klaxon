@@ -17,7 +17,7 @@ $currentUser = Session::user();
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
-<body class="container my-3 bg-light d-flex flex-column min-vh-100">
+<body class="container py-3 bg-light d-flex flex-column min-vh-100">
 
     <header class="border border-dark rounded-3">
 
@@ -106,4 +106,4 @@ $currentUser = Session::user();
         </p>
     <?php endif; ?>
 
-    <main>
+    <main class="flex-grow-1">
