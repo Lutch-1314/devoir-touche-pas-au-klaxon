@@ -1,10 +1,10 @@
 </main>
 
-<footer class="bg-dark text-light py-3 mt-auto">
+<footer class="py-3 mt-auto">
     <div class="container-fluid text-center">
         <p class="mb-0">
-            Touche Pas Au Klaxon
-            <span class="mx-3">&copy; <?= date('Y') ?></span>
+            <span>&copy; <?= date('Y') ?></span>
+            - CENEF / Lucie Aimar - MVC PHP
         </p>
     </div>
 </footer>
