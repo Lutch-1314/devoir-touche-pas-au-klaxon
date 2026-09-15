@@ -164,7 +164,15 @@ class Trip
 
         $stmt = $pdo->prepare($sql);
 
-        return $stmt->execute($trip);
+        return $stmt->execute([
+            'date_depart' => $trip['date_heure_depart'],
+            'date_arrivee' => $trip['date_heure_arrivee'],
+            'places_totales' => $trip['places_totales'],
+            'places_disponibles' => $trip['places_disponibles'],
+            'id_utilisateur' => $trip['id_utilisateur'],
+            'id_agence_depart' => $trip['id_agence_depart'],
+            'id_agence_arrivee' => $trip['id_agence_arrivee']
+        ]);
     }
 
     /**
@@ -226,7 +234,7 @@ class Trip
         return $stmt->fetchColumn() !== false;
     }
 
-/**
+    /**
      * Recherche un trajet par son identifiant.
      *
      * @param int $id

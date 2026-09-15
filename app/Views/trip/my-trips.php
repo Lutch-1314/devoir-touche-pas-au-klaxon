@@ -2,17 +2,14 @@
 
 use App\Core\Session;
 
-if ($flash): ?>
+$currentUser = Session::user();
 
-    <p class="<?= htmlspecialchars($flash['type']) ?>">
-        <?= htmlspecialchars($flash['message']) ?>
-    </p>
-
-<?php endif; ?>
+?>
 
 <h1>Mes trajets</h1>
 
 <table border="1" cellpadding="8">
+
     <thead>
         <tr>
             <th>Départ</th>
@@ -30,19 +27,33 @@ if ($flash): ?>
         <?php foreach ($trips as $trip): ?>
 
             <tr>
-                <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
-
-                <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
-
-                <td><?= htmlspecialchars($trip['date_heure_depart']) ?></td>
-
-                <td><?= htmlspecialchars($trip['date_heure_arrivee']) ?></td>
-
-                <td><?= htmlspecialchars($trip['places_totales']) ?></td>
-
-                <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
 
                 <td>
+                    <?= htmlspecialchars($trip['ville_depart']) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($trip['ville_arrivee']) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($trip['date_heure_depart']) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($trip['date_heure_arrivee']) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($trip['places_totales']) ?>
+                </td>
+
+                <td>
+                    <?= htmlspecialchars($trip['places_disponibles']) ?>
+                </td>
+
+                <td>
+
                     <?php if (
                         Session::isLogged()
                         && $trip['id_utilisateur'] == Session::user()['id']
@@ -72,10 +83,13 @@ if ($flash): ?>
                         </form>
 
                     <?php endif; ?>
+
                 </td>
+
             </tr>
 
         <?php endforeach; ?>
 
     </tbody>
+
 </table>

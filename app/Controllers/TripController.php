@@ -26,11 +26,8 @@ class TripController
             Session::user()['id']
         );
 
-        $flash = Session::getFlash();
-
         View::render('trip/my-trips', [
-            'trips' => $trips,
-            'flash' => $flash
+            'trips' => $trips
         ]);
     }
 
@@ -211,7 +208,7 @@ class TripController
 
         Session::setFlash(
             'success',
-            'Trajet modifié avec succès.'
+            'Le trajet a été modifié.'
         );
 
         if (Session::isAdmin()) {
