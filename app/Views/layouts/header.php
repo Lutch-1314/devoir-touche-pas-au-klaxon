@@ -19,7 +19,7 @@ $currentUser = Session::user();
 
 <body class="container py-3 bg-light d-flex flex-column min-vh-100">
 
-    <header class="border border-dark rounded-3">
+    <header class="border border-dark rounded-3 mb-3">
 
         <nav class="navbar navbar-expand-lg">
 

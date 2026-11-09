@@ -35,11 +35,13 @@ class AuthController
 
         if (!$user || $motDePasse !== $user['mot_de_passe']) {
 
-            View::render('login', [
-                'error' => 'Adresse e-mail ou mot de passe incorrect.'
-            ]);
+            Session::setFlash(
+                'error',
+                'Adresse e-mail ou mot de passe incorrect.'
+            );
 
-            return;
+            header('Location: /login');
+            exit;
         }
 
         Session::login($user);

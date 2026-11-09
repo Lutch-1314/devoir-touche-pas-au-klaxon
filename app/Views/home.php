@@ -1,16 +1,9 @@
 <?php
 
 use App\Core\Session;
+?>
 
-if ($flash): ?>
-
-    <p class="<?= htmlspecialchars($flash['type']) ?>">
-        <?= htmlspecialchars($flash['message']) ?>
-    </p>
-
-<?php endif; ?>
-
-<p class="mt-3 fs-2">Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
+<p class="fs-2">Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
 
 <table class="table table-striped table-bordered text-center">
 

@@ -1,13 +1,5 @@
 <h1>Connexion</h1>
 
-<?php if (isset($error)): ?>
-
-    <p>
-        <?= htmlspecialchars($error) ?>
-    </p>
-
-<?php endif; ?>
-
 <div class="col-lg-3">
     <form action="/login" method="POST">
 
