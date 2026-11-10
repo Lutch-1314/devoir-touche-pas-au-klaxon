@@ -3,7 +3,17 @@
 use App\Core\Session;
 ?>
 
-<p class="fs-2">Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.</p>
+<?php if (Session::user()): ?>
+
+    <h1 class="pb-2">Trajets proposés</h1>
+
+<?php else: ?>
+
+    <p class="fs-2">
+        Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.
+    </p>
+
+<?php endif; ?>
 
 <table class="table table-striped table-bordered text-center">
 
@@ -50,21 +60,19 @@ use App\Core\Session;
 
                 <?php if (Session::isLogged()): ?>
 
-                    <td><?= htmlspecialchars($trip['prenom'] . ' ' . $trip['nom']) ?></td>
-
                     <td>
+                        <div class="d-flex justify-content-center">
                         <button
                             type="button"
-                            class="btn btn-outline-primary btn-sm"
+                            class="btn"
                             data-bs-toggle="modal"
-                            data-bs-target="#tripModal<?= $trip['id_trajet'] ?>">
-                            + d'infos
+                            data-bs-target="#tripModal<?= $trip['id_trajet'] ?>"
+                        >
+                            <i class="bi bi-eye" aria-hidden="true"></i>
                         </button>
 
                         <?php require __DIR__ . '/trip/info-modal.php'; ?>
-                    </td>
 
-                    <td>
                         <?php if (
                             Session::isLogged()
                             && $trip['id_utilisateur'] == Session::user()['id']
@@ -72,8 +80,10 @@ use App\Core\Session;
 
                             <button
                                 type="button"
-                                onclick="window.location.href='/trips/edit?id=<?= $trip['id_trajet'] ?>'">
-                                Modifier
+                                class="btn"
+                                onclick="window.location.href='/trips/edit?id=<?= $trip['id_trajet'] ?>'"
+                            >
+                                <i class="bi bi-pencil-square"></i>
                             </button>
 
                             <form
@@ -87,13 +97,15 @@ use App\Core\Session;
 
                                 <button
                                     type="submit"
+                                    class="btn"
                                     onclick="return confirm('Supprimer ce trajet ?')">
-                                    Supprimer
+                                    <i class="bi bi-trash3"></i>
                                 </button>
 
                             </form>
 
                         <?php endif; ?>
+                        </div>
                     </td>
                 <?php endif; ?>
             </tr>
