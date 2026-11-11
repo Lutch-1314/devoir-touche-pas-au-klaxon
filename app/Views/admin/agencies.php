@@ -1,13 +1,5 @@
 <h1>Liste des agences</h1>
 
-<?php if ($flash): ?>
-
-    <p class="<?= htmlspecialchars($flash['type']) ?>">
-        <?= htmlspecialchars($flash['message']) ?>
-    </p>
-
-<?php endif; ?>
-
 <p>
     <a href="/agencies/create">
         Ajouter une nouvelle agence

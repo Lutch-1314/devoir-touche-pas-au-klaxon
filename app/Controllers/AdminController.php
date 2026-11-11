@@ -54,11 +54,8 @@ class AdminController
 
         $agencies = Agency::getAll();
 
-        $flash = Session::getFlash();
-
         View::render('admin/agencies', [
             'agencies' => $agencies,
-            'flash' => $flash
         ]);
     }
 
@@ -73,11 +70,8 @@ class AdminController
 
         $trips = Trip::getAll();
 
-        $flash = Session::getFlash();
-
         View::render('admin/trips', [
             'trips' => $trips,
-            'flash' => $flash
         ]);
     }
 }

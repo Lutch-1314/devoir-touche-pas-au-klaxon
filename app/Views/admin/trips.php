@@ -1,11 +1,3 @@
-<?php if ($flash): ?>
-
-    <p class="<?= htmlspecialchars($flash['type']) ?>">
-        <?= htmlspecialchars($flash['message']) ?>
-    </p>
-
-<?php endif; ?>
-
 <h1>Liste des trajets</h1>
 
 <table border="1" cellpadding="8">
