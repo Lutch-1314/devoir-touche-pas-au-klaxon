@@ -216,7 +216,7 @@ class TripController
             header('Location: /admin/trips');
         } else {
 
-            header('Location: /trips/my-trips');
+            header('Location: /');
         }
 
         exit;
