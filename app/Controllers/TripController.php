@@ -45,7 +45,7 @@ class TripController
         View::render("trip/form", [
             "title" => "Créer un trajet",
             "action" => "/trips/create",
-            "button" => "Créer",
+            "button" => "Créer le trajet",
             "trip" => [],
             "user" => $user,
             "agencies" => $agencies,
@@ -72,7 +72,9 @@ class TripController
         $error = $this->validateTrip($_POST);
 
         if ($error !== null) {
-            $this->displayCreateForm($error, $_POST);
+            Session::setFlash("error", $error);
+
+            $this->displayCreateForm($_POST);
 
             return;
         }
@@ -263,7 +265,7 @@ class TripController
      *
      * @return void
      */
-    private function displayCreateForm(string $errorMessage, array $old = []): void
+    private function displayCreateForm(array $old = []): void
     {
         $user = User::findById(Session::user()["id"]);
 
@@ -283,7 +285,6 @@ class TripController
             ],
             "user" => $user,
             "agencies" => $agencies,
-            "error" => $errorMessage,
             "old" => $old,
         ]);
     }
