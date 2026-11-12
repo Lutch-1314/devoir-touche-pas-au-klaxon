@@ -18,7 +18,7 @@ class AdminController
      *
      * @return void
      */
-    public function dashboard(): void
+    public function index(): void
     {
         Session::requireAdmin();
 
