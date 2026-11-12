@@ -90,7 +90,7 @@ $currentUser = Session::user();
                     <?php else: ?>
 
                         <li class="nav-item">
-                            <a class="btn btn-dark" href="/login">
+                            <a class="btn btn-secondary" href="/login">
                                 Connexion
                             </a>
                         </li>
