@@ -18,12 +18,14 @@ class AdminController
      *
      * @return void
      */
-    public function index(): void
+    public function dashboard(): void
     {
         Session::requireAdmin();
 
+        $user = Session::user();
+
         View::render("admin/dashboard", [
-            "user" => Session::user(),
+            "user" => $user,
         ]);
     }
 
