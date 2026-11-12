@@ -26,7 +26,7 @@
                         onclick="window.location.href='/agencies/edit?id=<?= $agency[
                             "id_agence"
                         ] ?>'"
-                    >
+                 >
                         Modifier
                     </button>
 
