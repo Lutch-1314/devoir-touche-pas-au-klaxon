@@ -27,7 +27,6 @@ $router->post("/agencies/edit", [AgencyController::class, "update"]);
 $router->post("/agencies/delete", [AgencyController::class, "delete"]);
 
 // Trajets
-$router->get("/trips/my-trips", [TripController::class, "myTrips"]);
 $router->get("/trips/create", [TripController::class, "create"]);
 $router->post("/trips/create", [TripController::class, "store"]);
 $router->get("/trips/edit", [TripController::class, "edit"]);
