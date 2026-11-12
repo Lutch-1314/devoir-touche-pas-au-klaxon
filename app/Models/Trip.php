@@ -78,7 +78,7 @@ class Trip
             INNER JOIN utilisateur u
                 ON t.id_utilisateur = u.id_utilisateur
             WHERE t.places_disponibles > 0
-                AND t.date_heure_depart > NOW()
+                AND t.date_heure_depart > CURRENT_TIMESTAMP
             ORDER BY t.date_heure_depart ASC
         ";
 
