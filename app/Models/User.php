@@ -30,7 +30,7 @@ class User
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'email' => $email
+            "email" => $email,
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,7 +56,7 @@ class User
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $id
+            "id" => $id,
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);

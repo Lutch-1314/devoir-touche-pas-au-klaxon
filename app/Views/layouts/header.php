@@ -5,7 +5,6 @@ use App\Core\Session;
 $flash = Session::getFlash();
 
 $currentUser = Session::user();
-
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +58,9 @@ $currentUser = Session::user();
                             </a>
                         </li>
                         <li class="nav-item">
-                            Bonjour <?= htmlspecialchars($currentUser['prenom']) ?> <?= htmlspecialchars($currentUser['nom']) ?>
+                            Bonjour <?= htmlspecialchars(
+                                $currentUser["prenom"],
+                            ) ?> <?= htmlspecialchars($currentUser["nom"]) ?>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-dark" href="/logout">
@@ -76,7 +77,9 @@ $currentUser = Session::user();
                             </a>
                         </li>
                         <li class="nav-item">
-                            Bonjour <?= htmlspecialchars($currentUser['prenom']) ?> <?= htmlspecialchars($currentUser['nom']) ?>
+                            Bonjour <?= htmlspecialchars(
+                                $currentUser["prenom"],
+                            ) ?> <?= htmlspecialchars($currentUser["nom"]) ?>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-dark" href="/logout">
@@ -101,8 +104,8 @@ $currentUser = Session::user();
     </header>
 
     <?php if ($flash): ?>
-        <p class="flash <?= htmlspecialchars($flash['type']) ?>">
-            <?= htmlspecialchars($flash['message']) ?>
+        <p class="flash <?= htmlspecialchars($flash["type"]) ?>">
+            <?= htmlspecialchars($flash["message"]) ?>
         </p>
     <?php endif; ?>
 

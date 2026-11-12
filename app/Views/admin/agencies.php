@@ -19,11 +19,13 @@
         <?php foreach ($agencies as $agency): ?>
 
             <tr>
-                <td><?= htmlspecialchars($agency['ville']) ?></td>
+                <td><?= htmlspecialchars($agency["ville"]) ?></td>
                 <td>
                     <button
                         type="button"
-                        onclick="window.location.href='/agencies/edit?id=<?= $agency['id_agence'] ?>'"
+                        onclick="window.location.href='/agencies/edit?id=<?= $agency[
+                            "id_agence"
+                        ] ?>'"
                     >
                         Modifier
                     </button>
@@ -35,7 +37,7 @@
                         <input
                             type="hidden"
                             name="id_agence"
-                            value="<?= $agency['id_agence'] ?>">
+                            value="<?= $agency["id_agence"] ?>">
 
                         <button
                             type="submit"

@@ -55,7 +55,7 @@ class Agency
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'ville' => $agency['ville']
+            "ville" => $agency["ville"],
         ]);
     }
 
@@ -79,7 +79,7 @@ class Agency
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $id
+            "id" => $id,
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -105,8 +105,8 @@ class Agency
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'ville' => $agency['ville'],
-            'id' => $agency['id_agence']
+            "ville" => $agency["ville"],
+            "id" => $agency["id_agence"],
         ]);
     }
 
@@ -129,7 +129,7 @@ class Agency
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $id
+            "id" => $id,
         ]);
     }
 }

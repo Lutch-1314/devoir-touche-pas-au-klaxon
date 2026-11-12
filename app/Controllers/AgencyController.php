@@ -21,14 +21,14 @@ class AgencyController
     {
         Session::requireAdmin();
 
-        View::render('agencies/form', [
-            'title' => 'Ajouter une nouvelle agence',
-            'action' => '/agencies/create',
-            'button' => 'Ajouter',
-            'agency' => [
-                'id_agence' => '',
-                'ville' => ''
-            ]
+        View::render("agencies/form", [
+            "title" => "Ajouter une nouvelle agence",
+            "action" => "/agencies/create",
+            "button" => "Ajouter",
+            "agency" => [
+                "id_agence" => "",
+                "ville" => "",
+            ],
         ]);
     }
 
@@ -41,28 +41,24 @@ class AgencyController
     {
         Session::requireAdmin();
 
-        $ville = trim($_POST['ville']);
+        $ville = trim($_POST["ville"]);
 
-        if ($ville === '') {
-
-            View::render('agencies/create', [
-                'error' => 'Veuillez saisir une ville.'
+        if ($ville === "") {
+            View::render("agencies/create", [
+                "error" => "Veuillez saisir une ville.",
             ]);
 
             return;
         }
 
         Agency::create([
-            'ville' => $ville
+            "ville" => $ville,
         ]);
 
-        Session::setFlash(
-            'success',
-            'Agence créée avec succès.'
-        );
+        Session::setFlash("success", "Agence créée avec succès.");
 
-        header('Location: /admin/agencies');
-        exit;
+        header("Location: /admin/agencies");
+        exit();
     }
 
     /**
@@ -74,20 +70,20 @@ class AgencyController
     {
         Session::requireAdmin();
 
-        $id = (int) ($_GET['id'] ?? 0);
+        $id = (int) ($_GET["id"] ?? 0);
 
         $agency = Agency::findById($id);
 
         if (!$agency) {
-            header('Location: /admin/agencies');
-            exit;
+            header("Location: /admin/agencies");
+            exit();
         }
 
-        View::render('agencies/form', [
-            'title' => 'Modifier une agence',
-            'action' => '/agencies/edit',
-            'button' => 'Enregistrer',
-            'agency' => $agency
+        View::render("agencies/form", [
+            "title" => "Modifier une agence",
+            "action" => "/agencies/edit",
+            "button" => "Enregistrer",
+            "agency" => $agency,
         ]);
     }
 
@@ -101,18 +97,17 @@ class AgencyController
         Session::requireAdmin();
 
         $agency = [
-            'id_agence' => (int) $_POST['id_agence'],
-            'ville' => trim($_POST['ville'])
+            "id_agence" => (int) $_POST["id_agence"],
+            "ville" => trim($_POST["ville"]),
         ];
 
-        if ($agency['ville'] === '') {
-
-            View::render('agencies/form', [
-                'title' => 'Modifier une agence',
-                'action' => '/agencies/edit',
-                'button' => 'Enregistrer',
-                'agency' => $agency,
-                'error' => 'Veuillez saisir une ville.'
+        if ($agency["ville"] === "") {
+            View::render("agencies/form", [
+                "title" => "Modifier une agence",
+                "action" => "/agencies/edit",
+                "button" => "Enregistrer",
+                "agency" => $agency,
+                "error" => "Veuillez saisir une ville.",
             ]);
 
             return;
@@ -120,13 +115,10 @@ class AgencyController
 
         Agency::update($agency);
 
-        Session::setFlash(
-            'success',
-            'Agence modifiée avec succès.'
-        );
+        Session::setFlash("success", "Agence modifiée avec succès.");
 
-        header('Location: /admin/agencies');
-        exit;
+        header("Location: /admin/agencies");
+        exit();
     }
 
     /**
@@ -138,32 +130,28 @@ class AgencyController
     {
         Session::requireAdmin();
 
-        $id = (int) ($_POST['id_agence'] ?? 0);
+        $id = (int) ($_POST["id_agence"] ?? 0);
 
         if ($id <= 0) {
-            header('Location: /admin/agencies');
-            exit;
+            header("Location: /admin/agencies");
+            exit();
         }
 
         if (Trip::isAgencyUsed($id)) {
-
             Session::setFlash(
-                'error',
-                'Impossible de supprimer cette agence car elle est utilisée dans un ou plusieurs trajets.'
+                "error",
+                "Impossible de supprimer cette agence car elle est utilisée dans un ou plusieurs trajets.",
             );
 
-            header('Location: /admin/agencies');
-            exit;
+            header("Location: /admin/agencies");
+            exit();
         }
 
         Agency::delete($id);
 
-        Session::setFlash(
-            'success',
-            'Agence supprimée avec succès.'
-        );
+        Session::setFlash("success", "Agence supprimée avec succès.");
 
-        header('Location: /admin/agencies');
-        exit;
+        header("Location: /admin/agencies");
+        exit();
     }
 }

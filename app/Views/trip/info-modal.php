@@ -1,6 +1,6 @@
 <div
     class="modal fade"
-    id="tripModal<?= $trip['id_trajet'] ?>"
+    id="tripModal<?= $trip["id_trajet"] ?>"
     tabindex="-1"
     aria-hidden="true">
 
@@ -20,24 +20,24 @@
                 <p>
                     Auteur :
                     <strong>   
-                        <?= htmlspecialchars($trip['prenom']) ?>
-                        <?= htmlspecialchars($trip['nom']) ?>
+                        <?= htmlspecialchars($trip["prenom"]) ?>
+                        <?= htmlspecialchars($trip["nom"]) ?>
                     </strong>
                 </p>
                 <p>
                     Téléphone :
                     <strong>
-                        <?= chunk_split(htmlspecialchars($trip['telephone']), 2, ' ') ?>
+                        <?= chunk_split(htmlspecialchars($trip["telephone"]), 2, " ") ?>
                     </strong>
                 </p>
                 <p>
                     Email :
                     <strong>
-                        <?= htmlspecialchars($trip['email']) ?></strong>
+                        <?= htmlspecialchars($trip["email"]) ?></strong>
                 </p>
                 <p>
                     Nombre total de places :
-                    <?= htmlspecialchars($trip['places_totales']) ?>
+                    <?= htmlspecialchars($trip["places_totales"]) ?>
                 </p>
             </div>
 

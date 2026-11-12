@@ -18,7 +18,7 @@ class AuthController
      */
     public function login(): void
     {
-        View::render('login');
+        View::render("login");
     }
 
     /**
@@ -28,26 +28,22 @@ class AuthController
      */
     public function authenticate(): void
     {
-        $email = trim($_POST['email']);
-        $motDePasse = $_POST['mot_de_passe'];
+        $email = trim($_POST["email"]);
+        $motDePasse = $_POST["mot_de_passe"];
 
         $user = User::findByEmail($email);
 
-        if (!$user || $motDePasse !== $user['mot_de_passe']) {
+        if (!$user || $motDePasse !== $user["mot_de_passe"]) {
+            Session::setFlash("error", "Adresse e-mail ou mot de passe incorrect.");
 
-            Session::setFlash(
-                'error',
-                'Adresse e-mail ou mot de passe incorrect.'
-            );
-
-            header('Location: /login');
-            exit;
+            header("Location: /login");
+            exit();
         }
 
         Session::login($user);
 
-        header('Location: /');
-        exit;
+        header("Location: /");
+        exit();
     }
 
     /**
@@ -59,7 +55,7 @@ class AuthController
     {
         Session::logout();
 
-        header('Location: /');
-        exit;
+        header("Location: /");
+        exit();
     }
 }

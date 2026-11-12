@@ -2,8 +2,8 @@
 
 <p>
     Bienvenue, 
-    <?= htmlspecialchars($user['prenom']) ?>
-    <?= htmlspecialchars($user['nom']) ?>.
+    <?= htmlspecialchars($user["prenom"]) ?>
+    <?= htmlspecialchars($user["nom"]) ?>.
 </p>
 
 <section>

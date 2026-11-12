@@ -19,19 +19,21 @@
         <?php foreach ($trips as $trip): ?>
 
             <tr>
-                <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
+                <td><?= htmlspecialchars($trip["ville_depart"]) ?></td>
 
-                <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
+                <td><?= htmlspecialchars($trip["ville_arrivee"]) ?></td>
 
-                <td><?= htmlspecialchars($trip['date_heure_depart']) ?></td>
+                <td><?= htmlspecialchars($trip["date_heure_depart"]) ?></td>
 
-                <td><?= htmlspecialchars($trip['date_heure_arrivee']) ?></td>
+                <td><?= htmlspecialchars($trip["date_heure_arrivee"]) ?></td>
 
-                <td><?= htmlspecialchars($trip['prenom']) ?> <?= htmlspecialchars($trip['nom']) ?></td>
+                <td><?= htmlspecialchars($trip["prenom"]) ?> <?= htmlspecialchars(
+     $trip["nom"],
+ ) ?></td>
 
-                <td><?= htmlspecialchars($trip['places_totales']) ?></td>
+                <td><?= htmlspecialchars($trip["places_totales"]) ?></td>
 
-                <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
+                <td><?= htmlspecialchars($trip["places_disponibles"]) ?></td>
 
                 <td>
 
@@ -43,7 +45,7 @@
                         <input
                             type="hidden"
                             name="id_trajet"
-                            value="<?= $trip['id_trajet'] ?>"
+                            value="<?= $trip["id_trajet"] ?>"
                         >
 
                         <button

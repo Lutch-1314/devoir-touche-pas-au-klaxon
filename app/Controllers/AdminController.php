@@ -22,8 +22,8 @@ class AdminController
     {
         Session::requireAdmin();
 
-        View::render('admin/dashboard', [
-            'user' => Session::user()
+        View::render("admin/dashboard", [
+            "user" => Session::user(),
         ]);
     }
 
@@ -38,8 +38,8 @@ class AdminController
 
         $users = User::getAll();
 
-        View::render('admin/users', [
-            'users' => $users
+        View::render("admin/users", [
+            "users" => $users,
         ]);
     }
 
@@ -54,8 +54,8 @@ class AdminController
 
         $agencies = Agency::getAll();
 
-        View::render('admin/agencies', [
-            'agencies' => $agencies,
+        View::render("admin/agencies", [
+            "agencies" => $agencies,
         ]);
     }
 
@@ -70,8 +70,8 @@ class AdminController
 
         $trips = Trip::getAll();
 
-        View::render('admin/trips', [
-            'trips' => $trips,
+        View::render("admin/trips", [
+            "trips" => $trips,
         ]);
     }
 }

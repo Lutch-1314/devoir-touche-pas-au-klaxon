@@ -14,7 +14,7 @@
     <input
         type="hidden"
         name="id_agence"
-        value="<?= htmlspecialchars($agency['id_agence']) ?>">
+        value="<?= htmlspecialchars($agency["id_agence"]) ?>">
 
     <div>
         <label for="ville">
@@ -25,7 +25,7 @@
             type="text"
             id="ville"
             name="ville"
-            value="<?= htmlspecialchars($agency['ville']) ?>"
+            value="<?= htmlspecialchars($agency["ville"]) ?>"
             required>
     </div>
 

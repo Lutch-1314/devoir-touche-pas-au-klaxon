@@ -19,10 +19,10 @@ class View
     {
         extract($data);
 
-        require APP_PATH . '/Views/layouts/header.php';
+        require APP_PATH . "/Views/layouts/header.php";
 
-        require APP_PATH . '/Views/' . $view . '.php';
+        require APP_PATH . "/Views/" . $view . ".php";
 
-        require APP_PATH . '/Views/layouts/footer.php';
+        require APP_PATH . "/Views/layouts/footer.php";
     }
 }

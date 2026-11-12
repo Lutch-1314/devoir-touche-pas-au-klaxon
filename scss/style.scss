@@ -2,7 +2,6 @@ $error: #cd2c2e;
 
 @use "../node_modules/bootstrap-icons/font/bootstrap-icons" as *;
 @use "../node_modules/bootstrap/scss/bootstrap" with (
-
     // Couleurs
     $primary: #0074c7,
     $secondary: #00497c,
@@ -32,12 +31,12 @@ body {
     color: var(--bs-dark);
 }
 
-h1{
+h1 {
     color: var(--bs-secondary);
     padding-bottom: 1rem;
 }
 
-h2{
+h2 {
     color: var(--bs-primary);
     padding-top: 1rem;
     padding-bottom: 0.75rem;

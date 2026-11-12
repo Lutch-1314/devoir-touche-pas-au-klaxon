@@ -20,8 +20,8 @@ class HomeController
     {
         $trips = Trip::getAvailableTrips();
 
-        View::render('home', [
-            'trips' => $trips,
+        View::render("home", [
+            "trips" => $trips,
         ]);
     }
 }

@@ -14,12 +14,12 @@
     <tbody>
         <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= htmlspecialchars($user['nom']) ?></td>
-                <td><?= htmlspecialchars($user['prenom']) ?></td>
-                <td><?= htmlspecialchars($user['telephone']) ?></td>
-                <td><?= htmlspecialchars($user['email']) ?></td>
+                <td><?= htmlspecialchars($user["nom"]) ?></td>
+                <td><?= htmlspecialchars($user["prenom"]) ?></td>
+                <td><?= htmlspecialchars($user["telephone"]) ?></td>
+                <td><?= htmlspecialchars($user["email"]) ?></td>
                 <td>
-                    <?= (int) $user['admin'] === 1 ? 'Oui' : 'Non' ?>
+                    <?= (int) $user["admin"] === 1 ? "Oui" : "Non" ?>
                 </td>
             </tr>
         <?php endforeach; ?>

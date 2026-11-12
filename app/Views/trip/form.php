@@ -3,20 +3,22 @@
 $old = $old ?? [];
 $trip = $trip ?? [];
 
-$departureAgency = $old['id_agence_depart'] ?? $trip['id_agence_depart'] ?? '';
-$arrivalAgency = $old['id_agence_arrivee'] ?? $trip['id_agence_arrivee'] ?? '';
+$departureAgency = $old["id_agence_depart"] ?? ($trip["id_agence_depart"] ?? "");
+$arrivalAgency = $old["id_agence_arrivee"] ?? ($trip["id_agence_arrivee"] ?? "");
 
-$places = $old['places_totales'] ?? $trip['places_totales'] ?? '';
+$places = $old["places_totales"] ?? ($trip["places_totales"] ?? "");
 
-$departureDate = $old['date_heure_depart']
-    ?? (!empty($trip['date_heure_depart'])
-        ? date('Y-m-d\TH:i', strtotime($trip['date_heure_depart']))
-        : '');
+$departureDate =
+    $old["date_heure_depart"] ??
+    (!empty($trip["date_heure_depart"])
+        ? date("Y-m-d\TH:i", strtotime($trip["date_heure_depart"]))
+        : "");
 
-$arrivalDate = $old['date_heure_arrivee']
-    ?? (!empty($trip['date_heure_arrivee'])
-        ? date('Y-m-d\TH:i', strtotime($trip['date_heure_arrivee']))
-        : '');
+$arrivalDate =
+    $old["date_heure_arrivee"] ??
+    (!empty($trip["date_heure_arrivee"])
+        ? date("Y-m-d\TH:i", strtotime($trip["date_heure_arrivee"]))
+        : "");
 ?>
 
 <h1><?= htmlspecialchars($title) ?></h1>
@@ -33,12 +35,12 @@ $arrivalDate = $old['date_heure_arrivee']
     action="<?= htmlspecialchars($action) ?>"
     method="POST">
 
-    <?php if (!empty($trip['id_trajet'])): ?>
+    <?php if (!empty($trip["id_trajet"])): ?>
 
         <input
             type="hidden"
             name="id_trajet"
-            value="<?= htmlspecialchars($trip['id_trajet']) ?>">
+            value="<?= htmlspecialchars($trip["id_trajet"]) ?>">
 
     <?php endif; ?>
 
@@ -59,9 +61,9 @@ $arrivalDate = $old['date_heure_arrivee']
             <?php foreach ($agencies as $agency): ?>
 
                 <option
-                    value="<?= $agency['id_agence'] ?>"
-                    <?= $departureAgency == $agency['id_agence'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($agency['ville']) ?>
+                    value="<?= $agency["id_agence"] ?>"
+                    <?= $departureAgency == $agency["id_agence"] ? "selected" : "" ?>>
+                    <?= htmlspecialchars($agency["ville"]) ?>
                 </option>
 
             <?php endforeach; ?>
@@ -86,9 +88,9 @@ $arrivalDate = $old['date_heure_arrivee']
             <?php foreach ($agencies as $agency): ?>
 
                 <option
-                    value="<?= $agency['id_agence'] ?>"
-                    <?= $arrivalAgency == $agency['id_agence'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($agency['ville']) ?>
+                    value="<?= $agency["id_agence"] ?>"
+                    <?= $arrivalAgency == $agency["id_agence"] ? "selected" : "" ?>>
+                    <?= htmlspecialchars($agency["ville"]) ?>
                 </option>
 
             <?php endforeach; ?>
@@ -107,7 +109,7 @@ $arrivalDate = $old['date_heure_arrivee']
             id="date_heure_depart"
             name="date_heure_depart"
             value="<?= htmlspecialchars($departureDate) ?>"
-            min="<?= htmlspecialchars(date('Y-m-d\TH:i')) ?>"
+            min="<?= htmlspecialchars(date("Y-m-d\TH:i")) ?>"
             required>
     </div>
     </div>
@@ -142,7 +144,7 @@ $arrivalDate = $old['date_heure_arrivee']
         <?= htmlspecialchars($button) ?>
     </button>
 
-    <a href="<?= \App\Core\Session::isAdmin() ? '/admin/trips' : '/' ?>"
+    <a href="<?= \App\Core\Session::isAdmin() ? "/admin/trips" : "/" ?>"
     class="btn btn-dark">
         Annuler
     </a>

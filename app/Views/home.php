@@ -1,7 +1,6 @@
 <?php
 
-use App\Core\Session;
-?>
+use App\Core\Session; ?>
 
 <?php if (Session::user()): ?>
 
@@ -40,23 +39,19 @@ use App\Core\Session;
         <?php foreach ($trips as $trip): ?>
 
             <tr>
-                <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
+                <td><?= htmlspecialchars($trip["ville_depart"]) ?></td>
 
-                <?php
-                $depart = new DateTime($trip['date_heure_depart']);
-                ?>
+                <?php $depart = new DateTime($trip["date_heure_depart"]); ?>
 
-                <td><?= htmlspecialchars($depart->format('d/m/y')) ?></td>
-                <td><?= htmlspecialchars($depart->format('H:i')) ?></td>
-                <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
+                <td><?= htmlspecialchars($depart->format("d/m/y")) ?></td>
+                <td><?= htmlspecialchars($depart->format("H:i")) ?></td>
+                <td><?= htmlspecialchars($trip["ville_arrivee"]) ?></td>
 
-                <?php
-                $arrivee = new DateTime($trip['date_heure_arrivee']);
-                ?>
+                <?php $arrivee = new DateTime($trip["date_heure_arrivee"]); ?>
 
-                <td><?= htmlspecialchars($arrivee->format('d/m/y')) ?></td>
-                <td><?= htmlspecialchars($arrivee->format('H:i')) ?></td>
-                <td><?= htmlspecialchars($trip['places_disponibles']) ?></td>
+                <td><?= htmlspecialchars($arrivee->format("d/m/y")) ?></td>
+                <td><?= htmlspecialchars($arrivee->format("H:i")) ?></td>
+                <td><?= htmlspecialchars($trip["places_disponibles"]) ?></td>
 
                 <?php if (Session::isLogged()): ?>
 
@@ -66,22 +61,24 @@ use App\Core\Session;
                             type="button"
                             class="btn"
                             data-bs-toggle="modal"
-                            data-bs-target="#tripModal<?= $trip['id_trajet'] ?>"
+                            data-bs-target="#tripModal<?= $trip["id_trajet"] ?>"
                         >
                             <i class="bi bi-eye" aria-hidden="true"></i>
                         </button>
 
-                        <?php require __DIR__ . '/trip/info-modal.php'; ?>
+                        <?php require __DIR__ . "/trip/info-modal.php"; ?>
 
                         <?php if (
-                            Session::isLogged()
-                            && $trip['id_utilisateur'] == Session::user()['id']
+                            Session::isLogged() &&
+                            $trip["id_utilisateur"] == Session::user()["id"]
                         ): ?>
 
                             <button
                                 type="button"
                                 class="btn"
-                                onclick="window.location.href='/trips/edit?id=<?= $trip['id_trajet'] ?>'"
+                                onclick="window.location.href='/trips/edit?id=<?= $trip[
+                                    "id_trajet"
+                                ] ?>'"
                             >
                                 <i class="bi bi-pencil-square"></i>
                             </button>
@@ -93,7 +90,7 @@ use App\Core\Session;
                                 <input
                                     type="hidden"
                                     name="id_trajet"
-                                    value="<?= $trip['id_trajet'] ?>">
+                                    value="<?= $trip["id_trajet"] ?>">
 
                                 <button
                                     type="submit"

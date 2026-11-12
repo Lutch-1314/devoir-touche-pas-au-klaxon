@@ -31,11 +31,11 @@ class Session
     {
         self::start();
 
-        $_SESSION['user'] = [
-            'id' => $user['id_utilisateur'],
-            'nom' => $user['nom'],
-            'prenom' => $user['prenom'],
-            'admin' => (int) $user['admin']
+        $_SESSION["user"] = [
+            "id" => $user["id_utilisateur"],
+            "nom" => $user["nom"],
+            "prenom" => $user["prenom"],
+            "admin" => (int) $user["admin"],
         ];
     }
 
@@ -50,18 +50,17 @@ class Session
 
         $_SESSION = [];
 
-        if (ini_get('session.use_cookies')) {
-
+        if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
 
             setcookie(
                 session_name(),
-                '',
+                "",
                 time() - 42000,
-                $params['path'],
-                $params['domain'],
-                $params['secure'],
-                $params['httponly']
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"],
             );
         }
 
@@ -77,7 +76,7 @@ class Session
     {
         self::start();
 
-        return $_SESSION['user'] ?? null;
+        return $_SESSION["user"] ?? null;
     }
 
     /**
@@ -99,7 +98,7 @@ class Session
     {
         $user = self::user();
 
-        return $user !== null && (int) $user['admin'] === 1;
+        return $user !== null && (int) $user["admin"] === 1;
     }
 
     /**
@@ -111,8 +110,8 @@ class Session
     public static function requireLogin(): void
     {
         if (!self::isLogged()) {
-            header('Location: /login');
-            exit;
+            header("Location: /login");
+            exit();
         }
     }
 
@@ -124,8 +123,8 @@ class Session
     public static function requireAdmin(): void
     {
         if (!self::isAdmin()) {
-            header('Location: /');
-            exit;
+            header("Location: /");
+            exit();
         }
     }
 
@@ -137,15 +136,13 @@ class Session
      *
      * @return void
      */
-    public static function setFlash(
-        string $type,
-        string $message
-    ): void {
+    public static function setFlash(string $type, string $message): void
+    {
         self::start();
 
-        $_SESSION['flash'] = [
-            'type' => $type,
-            'message' => $message
+        $_SESSION["flash"] = [
+            "type" => $type,
+            "message" => $message,
         ];
     }
 
@@ -158,13 +155,13 @@ class Session
     {
         self::start();
 
-        if (!isset($_SESSION['flash'])) {
+        if (!isset($_SESSION["flash"])) {
             return null;
         }
 
-        $message = $_SESSION['flash'];
+        $message = $_SESSION["flash"];
 
-        unset($_SESSION['flash']);
+        unset($_SESSION["flash"]);
 
         return $message;
     }
