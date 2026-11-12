@@ -15,6 +15,11 @@
 }
 
 .flash.success {
-    background-color: #82b864;
+    background-color: var(--bs-success);
+    color: white;
+}
+
+.flash.error {
+    background-color: var(--bs-danger);
     color: white;
 }
