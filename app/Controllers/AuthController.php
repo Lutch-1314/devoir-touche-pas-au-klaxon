@@ -42,7 +42,12 @@ class AuthController
 
         Session::login($user);
 
-        header("Location: /");
+        if (Session::isAdmin()) {
+            header("Location: /admin");
+        } else {
+            header("Location: /");
+        }
+
         exit();
     }
 
