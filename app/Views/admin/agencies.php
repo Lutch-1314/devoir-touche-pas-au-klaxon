@@ -1,3 +1,7 @@
+<?php
+/** @var array $agencies */
+?>
+
 <h1>Liste des agences</h1>
 
 <p>
@@ -6,7 +10,8 @@
     </a>
 </p>
 
-<table border="1" cellpadding="8">
+<table class="table table-bordered w-auto
+">
     <thead>
         <tr>
             <th>Ville</th>
@@ -20,14 +25,15 @@
 
             <tr>
                 <td><?= htmlspecialchars($agency["ville"]) ?></td>
-                <td>
+                <td  class="d-flex">
                     <button
                         type="button"
+                        class="btn"
                         onclick="window.location.href='/agencies/edit?id=<?= $agency[
                             "id_agence"
                         ] ?>'"
-                 >
-                        Modifier
+                    >
+                        <i class="bi bi-pencil-square"></i>
                     </button>
 
                     <form
@@ -41,8 +47,9 @@
 
                         <button
                             type="submit"
+                            class="btn"
                             onclick="return confirm('Supprimer cette agence ?')">
-                            Supprimer
+                            <i class="bi bi-trash3"></i>
                         </button>
                     </form>
                 </td>

@@ -1,6 +1,10 @@
+<?php
+/** @var array $users */    
+?>
+
 <h1>Liste des utilisateurs</h1>
 
-<table border="1" cellpadding="8">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Nom</th>
@@ -16,7 +20,7 @@
             <tr>
                 <td><?= htmlspecialchars($user["nom"]) ?></td>
                 <td><?= htmlspecialchars($user["prenom"]) ?></td>
-                <td><?= htmlspecialchars($user["telephone"]) ?></td>
+                <td><?= chunk_split(htmlspecialchars($user["telephone"]), 2, " ") ?></td>
                 <td><?= htmlspecialchars($user["email"]) ?></td>
                 <td>
                     <?= (int) $user["admin"] === 1 ? "Oui" : "Non" ?>

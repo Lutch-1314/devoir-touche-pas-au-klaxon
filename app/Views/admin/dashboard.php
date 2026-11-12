@@ -1,12 +1,16 @@
+<?php
+/** @var array $user */
+?>
+
 <h1>Administration</h1>
 
 <p>
-    Bienvenue, 
+    Bienvenue,
     <?= htmlspecialchars($user["prenom"]) ?>
     <?= htmlspecialchars($user["nom"]) ?>.
 </p>
 
-<section>
+<section class="mb-3">
 
     <h2>Utilisateurs</h2>
 
@@ -20,7 +24,7 @@
 
 </section>
 
-<section>
+<section class="mb-3">
 
     <h2>Agences</h2>
 
@@ -34,7 +38,8 @@
 
 </section>
 
-<section>
+
+<section class="mb-3">
 
     <h2>Trajets</h2>
 
