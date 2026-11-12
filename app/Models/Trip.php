@@ -44,9 +44,7 @@ class Trip
         ORDER BY t.date_heure_depart
     ";
 
-        return $pdo
-            ->query($sql)
-            ->fetchAll(PDO::FETCH_ASSOC);
+        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -122,7 +120,7 @@ class Trip
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            'userId' => $userId
+            "userId" => $userId,
         ]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -165,13 +163,13 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         return $stmt->execute([
-            'date_depart' => $trip['date_heure_depart'],
-            'date_arrivee' => $trip['date_heure_arrivee'],
-            'places_totales' => $trip['places_totales'],
-            'places_disponibles' => $trip['places_disponibles'],
-            'id_utilisateur' => $trip['id_utilisateur'],
-            'id_agence_depart' => $trip['id_agence_depart'],
-            'id_agence_arrivee' => $trip['id_agence_arrivee']
+            "date_depart" => $trip["date_heure_depart"],
+            "date_arrivee" => $trip["date_heure_arrivee"],
+            "places_totales" => $trip["places_totales"],
+            "places_disponibles" => $trip["places_disponibles"],
+            "id_utilisateur" => $trip["id_utilisateur"],
+            "id_agence_depart" => $trip["id_agence_depart"],
+            "id_agence_arrivee" => $trip["id_agence_arrivee"],
         ]);
     }
 
@@ -197,7 +195,7 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $agencyId
+            "id" => $agencyId,
         ]);
 
         return $stmt->fetchColumn() !== false;
@@ -227,8 +225,8 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'tripId' => $tripId,
-            'userId' => $userId
+            "tripId" => $tripId,
+            "userId" => $userId,
         ]);
 
         return $stmt->fetchColumn() !== false;
@@ -254,7 +252,7 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $id
+            "id" => $id,
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -276,6 +274,7 @@ class Trip
         SET date_heure_depart = :date_heure_depart,
             date_heure_arrivee = :date_heure_arrivee,
             places_totales = :places_totales,
+            places_disponibles = :places_disponibles,
             id_utilisateur = :id_utilisateur,
             id_agence_depart = :id_agence_depart,
             id_agence_arrivee = :id_agence_arrivee
@@ -285,13 +284,14 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'date_heure_depart' => $trip['date_heure_depart'],
-            'date_heure_arrivee' => $trip['date_heure_arrivee'],
-            'places_totales' => $trip['places_totales'],
-            'id_utilisateur' => $trip['id_utilisateur'],
-            'id_agence_depart' => $trip['id_agence_depart'],
-            'id_agence_arrivee' => $trip['id_agence_arrivee'],
-            'id' => $trip['id_trajet']
+            "date_heure_depart" => $trip["date_heure_depart"],
+            "date_heure_arrivee" => $trip["date_heure_arrivee"],
+            "places_totales" => $trip["places_totales"],
+            "places_disponibles" => $trip["places_disponibles"],
+            "id_utilisateur" => $trip["id_utilisateur"],
+            "id_agence_depart" => $trip["id_agence_depart"],
+            "id_agence_arrivee" => $trip["id_agence_arrivee"],
+            "id" => $trip["id_trajet"],
         ]);
     }
 
@@ -314,7 +314,7 @@ class Trip
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            'id' => $id
+            "id" => $id,
         ]);
     }
 }
