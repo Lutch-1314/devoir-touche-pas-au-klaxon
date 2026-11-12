@@ -243,9 +243,9 @@ class TripController
     }
 
     /**
-     * Affiche le formulaire de création d'un trajet avec un message d'erreur.
+     * Affiche le formulaire de création d'un trajet.
      *
-     * @param string $errorMessage
+     * @param array $old Anciennes valeurs du formulaire en cas d'erreur.
      *
      * @return void
      */
