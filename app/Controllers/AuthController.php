@@ -33,12 +33,15 @@ class AuthController
 
         $user = User::findByEmail($email);
 
-        if (!$user || $motDePasse !== $user["mot_de_passe"]) {
+        if (!$user || !password_verify($motDePasse, $user["mot_de_passe"])) {
             Session::setFlash("error", "Adresse e-mail ou mot de passe incorrect.");
 
             header("Location: /login");
             exit();
         }
+
+        // Ne pas conserver le hachage du mot de passe dans la session.
+        unset($user["mot_de_passe"]);
 
         Session::login($user);
 

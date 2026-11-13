@@ -22,7 +22,14 @@ class User
         $pdo = Database::getConnection();
 
         $sql = "
-            SELECT *
+            SELECT
+                id_utilisateur,
+                nom,
+                prenom,
+                telephone,
+                email,
+                mot_de_passe,
+                admin
             FROM utilisateur
             WHERE email = :email
         ";
@@ -48,7 +55,13 @@ class User
         $pdo = Database::getConnection();
 
         $sql = "
-            SELECT *
+            SELECT
+                id_utilisateur,
+                nom,
+                prenom,
+                telephone,
+                email,
+                admin
             FROM utilisateur
             WHERE id_utilisateur = :id
         ";
