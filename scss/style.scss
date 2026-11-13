@@ -1,0 +1,43 @@
+$error: #cd2c2e;
+
+@use "../node_modules/bootstrap-icons/font/bootstrap-icons" as *;
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+    // Couleurs
+    $primary: #0074c7,
+    $secondary: #00497c,
+    $success: #82b864,
+    $danger: $error,
+    $dark: #384050,
+    $light: #f1f8fc,
+
+    // Liens
+    $link-color: #0074c7,
+    $link-hover-color: #00497c
+);
+
+// ========================================
+// Partials
+// ========================================
+
+@use "./components";
+@use "./layouts";
+@use "./variables";
+
+// ========================================
+// Styles globaux
+// ========================================
+
+body {
+    color: var(--bs-dark);
+}
+
+h1 {
+    color: var(--bs-secondary);
+    padding-bottom: 1rem;
+}
+
+h2 {
+    color: var(--bs-primary);
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+}

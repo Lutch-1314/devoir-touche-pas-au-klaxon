@@ -1,0 +1,320 @@
+<?php
+
+namespace App\Models;
+
+use App\Core\Database;
+use PDO;
+
+/**
+ * Modèle permettant de gérer les trajets.
+ */
+class Trip
+{
+    /**
+     * Récupère tous les trajets.
+     *
+     * @return array
+     */
+    public static function getAll(): array
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT
+            t.id_trajet,
+            ad.ville AS ville_depart,
+            aa.ville AS ville_arrivee,
+            t.date_heure_depart,
+            t.date_heure_arrivee,
+            t.places_totales,
+            t.places_disponibles,
+            u.nom,
+            u.prenom
+        FROM trajet t
+
+        JOIN agence ad
+            ON ad.id_agence = t.id_agence_depart
+
+        JOIN agence aa
+            ON aa.id_agence = t.id_agence_arrivee
+
+        JOIN utilisateur u
+            ON u.id_utilisateur = t.id_utilisateur
+
+        ORDER BY t.date_heure_depart
+    ";
+
+        return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Récupère tous les trajets disponibles + les informations sur le conducteur.
+     *
+     * @return array
+     */
+    public static function getAvailableTrips(): array
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+            SELECT 
+                t.id_trajet,
+                t.id_utilisateur,
+                ad.ville AS ville_depart,
+                aa.ville AS ville_arrivee,
+                t.date_heure_depart,
+                t.date_heure_arrivee,
+                t.places_disponibles,
+                t.places_totales,
+                u.prenom,
+                u.nom,
+                u.telephone,
+                u.email
+            FROM trajet t
+            INNER JOIN agence ad
+                ON t.id_agence_depart = ad.id_agence
+            INNER JOIN agence aa
+                ON t.id_agence_arrivee = aa.id_agence
+            INNER JOIN utilisateur u
+                ON t.id_utilisateur = u.id_utilisateur
+            WHERE t.places_disponibles > 0
+                AND t.date_heure_depart > CURRENT_TIMESTAMP
+            ORDER BY t.date_heure_depart ASC
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Récupère les trajets d'un utilisateur.
+     *
+     * @param int $userId
+     *
+     * @return array
+     */
+    public static function getTripsByUser(int $userId): array
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+            SELECT 
+                t.id_trajet,
+                t.id_utilisateur,
+                ad.ville AS ville_depart,
+                t.date_heure_depart,
+                aa.ville AS ville_arrivee,
+                t.date_heure_arrivee,
+                t.places_totales,
+                t.places_disponibles
+            FROM trajet t
+            INNER JOIN agence ad
+                ON t.id_agence_depart = ad.id_agence
+            INNER JOIN agence aa
+                ON t.id_agence_arrivee = aa.id_agence
+            WHERE t.id_utilisateur = :userId
+            ORDER BY t.date_heure_depart ASC
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            "userId" => $userId,
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Crée un nouveau trajet.
+     *
+     * @param array $trip
+     *
+     * @return bool
+     */
+    public static function create(array $trip): bool
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+            INSERT INTO trajet
+            (
+                date_heure_depart,
+                date_heure_arrivee,
+                places_totales,
+                places_disponibles,
+                id_utilisateur,
+                id_agence_depart,
+                id_agence_arrivee
+            )
+            VALUES
+            (
+                :date_depart,
+                :date_arrivee,
+                :places_totales,
+                :places_disponibles,
+                :id_utilisateur,
+                :id_agence_depart,
+                :id_agence_arrivee
+            )
+        ";
+
+        $stmt = $pdo->prepare($sql);
+
+        return $stmt->execute([
+            "date_depart" => $trip["date_heure_depart"],
+            "date_arrivee" => $trip["date_heure_arrivee"],
+            "places_totales" => $trip["places_totales"],
+            "places_disponibles" => $trip["places_disponibles"],
+            "id_utilisateur" => $trip["id_utilisateur"],
+            "id_agence_depart" => $trip["id_agence_depart"],
+            "id_agence_arrivee" => $trip["id_agence_arrivee"],
+        ]);
+    }
+
+    /**
+     * Indique si une agence est utilisée par un trajet.
+     *
+     * @param int $agencyId
+     *
+     * @return bool
+     */
+    public static function isAgencyUsed(int $agencyId): bool
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT 1
+        FROM trajet
+        WHERE id_agence_depart = :id
+           OR id_agence_arrivee = :id
+        LIMIT 1
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            "id" => $agencyId,
+        ]);
+
+        return $stmt->fetchColumn() !== false;
+    }
+
+    /**
+     * Vérifie si un trajet appartient à un utilisateur.
+     *
+     * @param int $tripId Identifiant du trajet.
+     * @param int $userId Identifiant de l'utilisateur.
+     *
+     * @return bool True si le trajet appartient à l'utilisateur, false sinon.
+     */
+
+    public static function belongsToUser(int $tripId, int $userId): bool
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT 1
+        FROM trajet
+        WHERE id_trajet = :tripId
+          AND id_utilisateur = :userId
+        LIMIT 1
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            "tripId" => $tripId,
+            "userId" => $userId,
+        ]);
+
+        return $stmt->fetchColumn() !== false;
+    }
+
+    /**
+     * Recherche un trajet par son identifiant.
+     *
+     * @param int $id
+     *
+     * @return array|false
+     */
+    public static function findById(int $id): array|false
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        SELECT *
+        FROM trajet
+        WHERE id_trajet = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            "id" => $id,
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Met à jour un trajet.
+     *
+     * @param array $trip
+     *
+     * @return void
+     */
+    public static function update(array $trip): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        UPDATE trajet
+        SET date_heure_depart = :date_heure_depart,
+            date_heure_arrivee = :date_heure_arrivee,
+            places_totales = :places_totales,
+            places_disponibles = :places_disponibles,
+            id_utilisateur = :id_utilisateur,
+            id_agence_depart = :id_agence_depart,
+            id_agence_arrivee = :id_agence_arrivee
+        WHERE id_trajet = :id
+    ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            "date_heure_depart" => $trip["date_heure_depart"],
+            "date_heure_arrivee" => $trip["date_heure_arrivee"],
+            "places_totales" => $trip["places_totales"],
+            "places_disponibles" => $trip["places_disponibles"],
+            "id_utilisateur" => $trip["id_utilisateur"],
+            "id_agence_depart" => $trip["id_agence_depart"],
+            "id_agence_arrivee" => $trip["id_agence_arrivee"],
+            "id" => $trip["id_trajet"],
+        ]);
+    }
+
+    /**
+     * Supprime un trajet.
+     *
+     * @param int $id
+     *
+     * @return void
+     */
+    public static function delete(int $id): void
+    {
+        $pdo = Database::getConnection();
+
+        $sql = "
+        DELETE FROM trajet
+        WHERE id_trajet = :id
+        ";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            "id" => $id,
+        ]);
+    }
+}

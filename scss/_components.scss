@@ -1,0 +1,25 @@
+.navbar {
+    --bs-navbar-brand-color: var(--bs-dark);
+    --bs-navbar-brand-hover-color: var(--bs-dark);
+}
+
+.table thead th {
+    background-color: var(--bs-secondary);
+    color: var(--bs-light);
+}
+
+.flash {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.flash.success {
+    background-color: var(--bs-success);
+    color: white;
+}
+
+.flash.error {
+    background-color: var(--bs-danger);
+    color: white;
+}
