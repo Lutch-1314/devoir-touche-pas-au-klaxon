@@ -1,5 +1,9 @@
-
 <?php
+
+/** @var string $title */
+/** @var string $action */
+/** @var string $button */
+/** @var array $agencies */
 
 $old = $old ?? [];
 $trip = $trip ?? [];

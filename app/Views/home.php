@@ -1,6 +1,9 @@
 <?php
 
-use App\Core\Session; ?>
+use App\Core\Session; 
+/** @var array $trips */
+
+?>
 
 <?php if (Session::user()): ?>
 

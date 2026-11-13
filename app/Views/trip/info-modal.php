@@ -1,3 +1,9 @@
+<?php
+
+/** @var array $trip */
+
+?>
+
 <div
     class="modal fade"
     id="tripModal<?= $trip["id_trajet"] ?>"
